@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sales_orders', function (Blueprint $table) {
-            $table->id();
+            $table->char('code', 20)->primary();
             $table->char('customer_code');
             $table->foreign('customer_code')->on('customers')->references('code');
             $table->string('description', 200);

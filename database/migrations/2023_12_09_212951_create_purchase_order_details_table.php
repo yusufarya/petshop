@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('purchase_order_details', function (Blueprint $table) {
             // $table->id();
-            $table->unsignedBigInteger('purchase_order_id');
-            $table->foreign('purchase_order_id')->on('purchase_orders')->references('id');
+            $table->char('purchase_order_code');
+            $table->foreign('purchase_order_code')->on('purchase_orders')->references('code');
             $table->integer('sequence');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->on('products')->references('id');

@@ -2,6 +2,8 @@
 
 use App\Models\Admin;
 use App\Models\Training;
+use App\Models\SalesOrder;
+use App\Models\PurchaseOrder;
 use Illuminate\Support\Facades\DB;
 
 function testHelper() {
@@ -14,6 +16,43 @@ function last_query() {
     // and then you can get query log
 
     dd(DB::getQueryLog());
+}
+
+
+function getLasCodeTransaction($type) {
+    
+    if($type == 'P') {
+        $lastNumber = PurchaseOrder::max('code');
+    
+        if($lastNumber) {
+            $lastNumber = substr($lastNumber, -3);
+            $code_ = sprintf('%03d', $lastNumber+1);
+            $numberFix = "PTCB".date('ymd').$code_;
+        } else {
+            $numberFix = "PTCB".date('ymd')."001";
+        }
+    } else if($type == 'S') {
+        $lastNumber = SalesOrder::max('code');
+        if($lastNumber) {
+            $lastNumber = substr($lastNumber, -3);
+            $code_ = sprintf('%03d', $lastNumber+1);
+            $numberFix = "STCB".date('ymd').$code_;
+        } else {
+            $numberFix = "STCB".date('ymd')."001";
+        }
+    } else if($type == 'R') {
+        $lastNumber = ServiceOrder::max('code');
+    
+        if($lastNumber) {
+            $lastNumber = substr($lastNumber, -3);
+            $code_ = sprintf('%03d', $lastNumber+1);
+            $numberFix = "CRCB".date('ymd').$code_;
+        } else {
+            $numberFix = "CRCB".date('ymd')."001";
+        }
+    } 
+
+    return $numberFix;
 }
 
 function cleanSpecialChar($string) {

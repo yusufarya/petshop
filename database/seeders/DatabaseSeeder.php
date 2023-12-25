@@ -8,6 +8,7 @@ use App\Models\Unit;
 use App\Models\Admin;
 use App\Models\Brand;
 use App\Models\Period;
+use App\Models\Vendor;
 use App\Models\Setting;
 use App\Models\Village;
 use App\Models\Category;
@@ -80,7 +81,7 @@ class DatabaseSeeder extends Seeder
 
         Admin::create([
             'code' => 'ADM'.date('Ymd').'1',
-            'fullname' => 'Owners Cahaya Baru',
+            'fullname' => 'Owners Petshop',
             'username' => 'owners',
             'gender' => 'M',
             'phone' => '08986564321',
@@ -104,5 +105,10 @@ class DatabaseSeeder extends Seeder
             'created_at' => date('Y-m-d H:i:s'),
         ]);
 
+        Vendor::create([
+            'code' => '1',
+            'name' => 'Vendor A',
+            'address' => 'Tangerang',
+        ]);
     }
 }

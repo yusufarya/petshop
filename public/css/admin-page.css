@@ -19,7 +19,7 @@ body {
 }
 
 .my-bg-primary {
-    background-color: #af4425;
+    background-color: #f98771;
 }
 .my-bg-secondary {
     background-color: #662e1c;
@@ -31,7 +31,7 @@ body {
     background-color: #c9a66b;
 }
 .my-color-primary {
-    color: #af4425;
+    color: #f98771;
 }
 .my-color-secondary {
     color: #662e1c;
@@ -44,11 +44,11 @@ body {
 }
 
 .link_profile:hover {
-    border-bottom: 2px solid #af4425;
+    border-bottom: 2px solid #f98771;
 }
 
 .profile-active {
-    border-bottom: 2px solid #af4425;
+    border-bottom: 2px solid #f98771;
 }
 
 .menu-active {
@@ -57,11 +57,11 @@ body {
 }
 
 .menu-active:hover {
-    color: #af4425 !important;
+    color: #f98771 !important;
 }
 
 .submenu-active {
-    color: #af4425 !important;
+    color: #f98771 !important;
     font-weight: 600;
     padding-left: 17px;
 }
@@ -72,7 +72,7 @@ body {
     width: 85%;
     left: 15px;
     bottom: 0;
-    border-bottom: 2px solid #af4425;
+    border-bottom: 2px solid #f98771;
 } */
 
 .sidebar-search-results .list-group a {
@@ -81,7 +81,7 @@ body {
 
 /* Page -- Content */
 .btn-add {
-    color: #af4425 !important;
+    color: #f98771 !important;
     font-weight: 600;
     right: 0;
     padding: 0;
@@ -92,7 +92,7 @@ body {
 }
 
 .my-button-save {
-    background-color: #af4425 !important;
+    background-color: #f98771 !important;
     color: #fff;
 }
 .my-button-save:hover {
