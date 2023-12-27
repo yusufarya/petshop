@@ -73,7 +73,7 @@ class PurchaseTransactionReport extends Controller
             $data = DB::table('purchase_order_details')
                 ->select('purchase_order_details.*','vendors.name as vendor_name', 'purchase_orders.qty as total_qty', 'purchase_orders.total_price as total_price', 
                 'products.name as product_name')
-                ->leftJoin('purchase_orders', 'purchase_orders.id', '=', 'purchase_order_details.purchase_order_id')
+                ->leftJoin('purchase_orders', 'purchase_orders.code', '=', 'purchase_order_details.purchase_order_code')
                 ->leftJoin('vendors', 'purchase_orders.vendor_code', '=', 'vendors.code')
                 ->leftJoin('products', 'purchase_order_details.product_id', '=', 'products.id') 
                 ->where($where) 
@@ -85,7 +85,7 @@ class PurchaseTransactionReport extends Controller
             $data = DB::table('purchase_order_details')
                 ->select('purchase_order_details.*','vendors.name as vendor_name', 'purchase_orders.qty as total_qty', 'purchase_orders.total_price as total_price', 
                 'products.name as product_name')
-                ->leftJoin('purchase_orders', 'purchase_orders.id', '=', 'purchase_order_details.purchase_order_id')
+                ->leftJoin('purchase_orders', 'purchase_orders.code', '=', 'purchase_order_details.purchase_order_code')
                 ->leftJoin('vendors', 'purchase_orders.vendor_code', '=', 'vendors.code')
                 ->leftJoin('products', 'purchase_order_details.product_id', '=', 'products.id')
                 ->whereBetween('purchase_orders.date', [$date, $date1])

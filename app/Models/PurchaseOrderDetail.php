@@ -18,7 +18,7 @@ class PurchaseOrderDetail extends Model
 
     public function purchase_order(): BelongsTo
     {
-        return $this->belongsTo(PurchaseOrder::class, 'purchase_order_id', 'id');
+        return $this->belongsTo(PurchaseOrder::class, 'purchase_order_code', 'code');
     } 
     
     public function products(): BelongsTo

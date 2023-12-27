@@ -3,6 +3,8 @@
 use App\Models\Admin;
 use App\Models\Training;
 use App\Models\SalesOrder;
+use App\Models\DeliveryType;
+use App\Models\OrderPayment;
 use App\Models\PurchaseOrder;
 use Illuminate\Support\Facades\DB;
 
@@ -18,27 +20,47 @@ function last_query() {
     dd(DB::getQueryLog());
 }
 
+function getCharge($type = '') {
+    if(!$type) {
+        return DeliveryType::first();
+    }
+}
+
+function getLastPayCode() {
+    $lastNumber = OrderPayment::max('code');
+
+    if($lastNumber) {
+        $lastNumber = substr($lastNumber, -3);
+        $code_ = sprintf('%03d', $lastNumber+1);
+        $numberFix = "TR".date('ymd').$code_;
+    } else {
+        $numberFix = "TR".date('ymd')."001";
+    }
+
+    return $numberFix;
+}
 
 function getLasCodeTransaction($type) {
     
     if($type == 'P') {
         $lastNumber = PurchaseOrder::max('code');
+        
     
         if($lastNumber) {
             $lastNumber = substr($lastNumber, -3);
             $code_ = sprintf('%03d', $lastNumber+1);
-            $numberFix = "PTCB".date('ymd').$code_;
+            $numberFix = "PTPS".date('ymd').$code_;
         } else {
-            $numberFix = "PTCB".date('ymd')."001";
+            $numberFix = "PTPS".date('ymd')."001";
         }
     } else if($type == 'S') {
         $lastNumber = SalesOrder::max('code');
         if($lastNumber) {
             $lastNumber = substr($lastNumber, -3);
             $code_ = sprintf('%03d', $lastNumber+1);
-            $numberFix = "STCB".date('ymd').$code_;
+            $numberFix = "STPS".date('ymd').$code_;
         } else {
-            $numberFix = "STCB".date('ymd')."001";
+            $numberFix = "STPS".date('ymd')."001";
         }
     } else if($type == 'R') {
         $lastNumber = ServiceOrder::max('code');
@@ -46,9 +68,9 @@ function getLasCodeTransaction($type) {
         if($lastNumber) {
             $lastNumber = substr($lastNumber, -3);
             $code_ = sprintf('%03d', $lastNumber+1);
-            $numberFix = "CRCB".date('ymd').$code_;
+            $numberFix = "SERV".date('ymd').$code_;
         } else {
-            $numberFix = "CRCB".date('ymd')."001";
+            $numberFix = "SERV".date('ymd')."001";
         }
     } 
 

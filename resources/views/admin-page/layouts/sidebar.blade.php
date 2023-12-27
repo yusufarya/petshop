@@ -1,5 +1,6 @@
 <?php
-    $profileImg = $auth_user->image ? $auth_user->image : 'userDefault.png'; 
+    $profileImg = $auth_user->image ? $auth_user->image : 'userDefault.png';
+    $level_user =  $auth_user->admin_level->id;
 ?>
 
 <!-- Main Sidebar Container -->
@@ -98,12 +99,6 @@
                             </a> 
                         </li>
                         <li class="nav-item">
-                            <a href="/brands" class="nav-link {{ Request::segment(1) === 'brands' ? 'submenu-active' : '' }}">
-                                » &nbsp;
-                                <p>Master Merek</p>
-                            </a> 
-                        </li>
-                        <li class="nav-item">
                             <a href="/categories" class="nav-link {{ Request::segment(1) === 'categories' ? 'submenu-active' : '' }}">
                                 » &nbsp;
                                 <p>Master Kategori</p>
@@ -167,7 +162,7 @@
                 </li> 
                 
                 {{-- <li class="nav-header">Penjualan</li> --}}
-                <li class="nav-item {{ Request::segment(1) === 'sales-order' || Request::segment(1) === 'participant-report' || Request::segment(1) === 'service-detail' ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'orders' || Request::segment(1) === 'sales-order' || Request::segment(1) === 'sales-report' || Request::segment(1) === 'request-order' ? 'menu-is-opening menu-open' : '' }}" {{ $level_user == 3 ? 'hidden' : '' }}>
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
@@ -176,6 +171,18 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-3">
+                        <li class="nav-item">
+                            <a href="/orders" class="nav-link {{ Request::segment(1) === 'orders' ? 'submenu-active' : '' }}">
+                                » &nbsp;
+                                <p>Pesanan </p>
+                            </a> 
+                        </li>
+                        <li class="nav-item">
+                            <a href="/request-order" class="nav-link {{ Request::segment(1) === 'request-order' ? 'submenu-active' : '' }}">
+                                » &nbsp;
+                                <p>Request Order </p>
+                            </a> 
+                        </li>
                         <li class="nav-item">
                             <a href="/sales-order" class="nav-link {{ Request::segment(1) === 'sales-order' ? 'submenu-active' : '' }}">
                                 » &nbsp;
@@ -189,39 +196,59 @@
                             </a> 
                         </li>
                     </ul>
-                </li> 
+                </li>
 
-                <li class="nav-item {{ Request::segment(1) === 'registrant-report' || Request::segment(1) === 'participant-report' || Request::segment(1) === 'service-detail' ? 'menu-is-opening menu-open' : '' }}">
+                {{-- Delivery --}}
+                <li class="nav-item {{ Request::segment(1) === 'delivery-types' || Request::segment(1) === 'delivery' ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-file"></i>
+                        <i class="nav-icon fas fa-box"></i>
                         <p>
-                            Data Laporan
+                            Pengiriman
                         <i class="fas fa-angle-right right"></i> 
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-3">
                         <li class="nav-item">
-                            <a href="/registrant-report" class="nav-link {{ Request::segment(1) === 'registrant-report' ? 'submenu-active' : '' }}">
+                            <a href="/delivery-types" class="nav-link {{ Request::segment(1) === 'delivery-types' ? 'submenu-active' : '' }}">
                                 » &nbsp;
-                                <p>Laporan Pendaftar</p>
+                                <p>Jenis Pengiriman</p>
                             </a> 
                         </li>
                         <li class="nav-item">
-                            <a href="/participant-report" class="nav-link {{ Request::segment(1) === 'participant-report' ? 'submenu-active' : '' }}">
+                            <a href="/delivery" class="nav-link {{ Request::segment(1) === 'delivery' ? 'submenu-active' : '' }}">
                                 » &nbsp;
-                                <p>Laporan Peserta</p>
+                                <p>Pengiriman Pesanan</p>
                             </a> 
                         </li>
+                    </ul>
+                </li> 
+
+                {{-- Finance --}}
+                <li class="nav-item {{ Request::segment(1) === 'payment-method' || Request::segment(1) === 'financial-report' ? 'menu-is-opening menu-open' : '' }}" {{ $level_user == 3 ? 'hidden' : '' }}>
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-money-check-alt"></i>
+                        <p>
+                            Keuangan
+                        <i class="fas fa-angle-right right"></i> 
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-3">
                         <li class="nav-item">
-                            <a href="/categories" class="nav-link {{ Request::segment(1) === 'categories' ? 'submenu-active' : '' }}">
+                            <a href="/payment-method" class="nav-link {{ Request::segment(1) === 'payment-method' ? 'submenu-active' : '' }}">
                                 » &nbsp;
-                                <p>Laporan Peserta UJK</p>
+                                <p>Metode Pembayaran</p>
+                            </a> 
+                        </li>
+                        <li class="nav-item" hidden>
+                            <a href="/financial-report" class="nav-link {{ Request::segment(1) === 'financial-report' ? 'submenu-active' : '' }}">
+                                » &nbsp;
+                                <p>Laporan Keuangan</p>
                             </a> 
                         </li>
                     </ul>
                 </li> 
                 
-                <li class="nav-header">Lainnya</li>
+                {{-- <li class="nav-header">Lainnya</li>
                 <li class="nav-item">
                     <a href="/set-period" class="nav-link {{ Request::segment(1) === 'set-period' ? 'submenu-active' : '' }}">
                         <i class="nav-icon fas fa-calendar-minus"></i>
@@ -234,7 +261,7 @@
                         <i class="nav-icon fas fa-tools"></i>
                         <p>Pengaturan</p>
                     </a>
-                </li> 
+                </li>  --}}
 
             </ul>
         </nav>

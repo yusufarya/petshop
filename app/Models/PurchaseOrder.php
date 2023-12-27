@@ -11,13 +11,23 @@ class PurchaseOrder extends Model
 {
     use HasFactory;
 
-    public $guarded = ['id'];
+    // public $guarded = ['id'];
+    public $primaryKey = 'code';
+    protected $keyType = "string";
     public $timestamps = false;
 
-    // public function products(): BelongsTo
-    // {
-    //     return $this->belongsTo(Product::class, 'product_id', 'id');
-    // } 
+    protected $fillable = [
+        'code',
+        'vendor_code',
+        'description',
+        'date',
+        'qty', 
+        'total_price',
+        'discount',
+        'charge',
+        'nett',
+    ];
+    
     public function vendor(): BelongsTo
     {
         return $this->belongsTo(Vendor::class, 'vendor_code', 'code');

@@ -67,9 +67,9 @@
                     $grand_total_price = 0;
                 ?>
                 @foreach ($data as $item)
-                    @if ($temp_idOrder <> $item->purchase_order_id)
+                    @if ($temp_idOrder <> $item->purchase_order_code)
                         <tr style="font-weight: 600;">
-                            <td>{{ date('ymd', strtotime($item->date)).'-0'.$item->purchase_order_id }}</td>
+                            <td>{{ date('ymd', strtotime($item->date)).'-0'.$item->purchase_order_code }}</td>
                             <td>{{ $item->vendor_name }}</td>
                             <td>{{ date('d/m/Y', strtotime($item->date)) }}</td>
                             <td></td>
@@ -91,7 +91,7 @@
                         <td style="text-align: right;">{{ number_format($item->price,2) }}</td>
                     </tr>
                     <?php 
-                    $temp_idOrder = $item->purchase_order_id;
+                    $temp_idOrder = $item->purchase_order_code;
                     ?>
                 @endforeach
                 <tr style="font-size: 13px; font-weight: 600;">

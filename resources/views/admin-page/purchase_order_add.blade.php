@@ -23,8 +23,8 @@
                     
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="vendor_code">Nomor Transaksi</label>
-                        <input type="text" class="form-control" name="codeTrans" id="codeTrans" placeholder="{{ date('ymd') }}-XX" readonly>
-                        <input type="hidden" id="purchase_order_id">
+                        <input type="text" class="form-control" name="codeTrans" id="codeTrans" placeholder="PTPS{{ date('ymdhis') }}-XX" readonly>
+                        <input type="hidden" id="purchase_order_code">
                     </div>
                     <div class="col-lg-4 col-md-4 col-sm-4 mt-2">
                         <label for="vendor_code">Vendor</label>

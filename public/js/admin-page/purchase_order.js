@@ -1,9 +1,9 @@
-function delete_data(id, name) {
+function delete_data(code, name) {
     $.ajax({
         type: "GET",
         url: "/purchase-order_detail/checkData", // Use the route function to generate the URL
         data: {
-            purchase_order_id: id,
+            purchase_order_code: code,
         },
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -15,13 +15,13 @@ function delete_data(id, name) {
                 $(".modal-title").text("Hapus Data");
                 $("#modal-delete form").attr(
                     "action",
-                    "/delete-purchase-order/" + id
+                    "/delete-purchase-order/" + code
                 );
 
                 var html =
                     `<div class="col mb-2">
-                                <input type="hidden" name="id" id="id" value="` +
-                    id +
+                                <input type="hidden" name="code" id="code" value="` +
+                    code +
                     `">
                                 <span style="margin-left: 10px;">Hapus Pembelian <b>` +
                     name +

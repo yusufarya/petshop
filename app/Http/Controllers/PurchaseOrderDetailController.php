@@ -12,7 +12,7 @@ class PurchaseOrderDetailController extends Controller
 {
 
     function checkData(Request $request) {
-        $result = DB::table('purchase_order_details')->where(['purchase_order_id'=> $request->purchase_order_id])->get();
+        $result = DB::table('purchase_order_details')->where(['purchase_order_code'=> $request->purchase_order_code])->get();
         if($result) {
             return response()->json(['status' => 'success', 'data' => $result]);
         } else {
@@ -23,7 +23,7 @@ class PurchaseOrderDetailController extends Controller
     function storeData(Request $request) {
 
         $data = [
-            'purchase_order_id' => $request->purchase_order_id,
+            'purchase_order_code' => $request->purchase_order_code,
             'sequence' => $request->sequence,
             'product_id' => $request->product_id,
             'date' => $request->date,
@@ -67,11 +67,11 @@ class PurchaseOrderDetailController extends Controller
         // Qty baru input
         $newQty = $request->qty_dt; 
 
-        $resultCurentQty = PurchaseOrderDetail::where(['sequence' => $request->sequence, 'purchase_order_id'=> $request->purchase_order_id])->first();
+        $resultCurentQty = PurchaseOrderDetail::where(['sequence' => $request->sequence, 'purchase_order_code'=> $request->purchase_order_code])->first();
         // Qty saat ini (sebelum input)
         $curentStock = $resultCurentQty->qty;
 
-        $update = DB::table('purchase_order_details')->where(['sequence' => $request->sequence, 'purchase_order_id'=> $request->purchase_order_id])->update($data);
+        $update = DB::table('purchase_order_details')->where(['sequence' => $request->sequence, 'purchase_order_code'=> $request->purchase_order_code])->update($data);
         
         $checkInventory = Inventory::where(['product_id' => $product_id])->first();
         if (!$checkInventory) {
@@ -92,10 +92,10 @@ class PurchaseOrderDetailController extends Controller
     }
     
     function removeData(Request $request) {
-        $resultCurentQty = PurchaseOrderDetail::where(['sequence' => $request->sequence, 'purchase_order_id'=> $request->purchase_order_id])->first();
+        $resultCurentQty = PurchaseOrderDetail::where(['sequence' => $request->sequence, 'purchase_order_code'=> $request->purchase_order_code])->first();
         $curentStock = $resultCurentQty->qty;
 
-        $delete = DB::table('purchase_order_details')->where(['sequence' => $request->sequence, 'purchase_order_id'=> $request->purchase_order_id])->delete();
+        $delete = DB::table('purchase_order_details')->where(['sequence' => $request->sequence, 'purchase_order_code'=> $request->purchase_order_code])->delete();
         
         if($delete) {
             $get_product_id = DB::table('products')->where(['name' => trim($request->product_name)])->first();
@@ -114,9 +114,9 @@ class PurchaseOrderDetailController extends Controller
         }
     }
 
-    function getAllDetail(int $id) {
+    function getAllDetail(string $code) {
         
-        $resuldData = PurchaseOrderDetail::with('products.categories', 'products.sizes', 'products.units')->where(['purchase_order_id' => $id])
+        $resuldData = PurchaseOrderDetail::with('products.categories', 'products.sizes', 'products.units')->where(['purchase_order_code' => $code])
                         ->orderBy('sequence', 'ASC')->get();
 
         if ($resuldData) {

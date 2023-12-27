@@ -51,12 +51,11 @@ $(async function () {
                     ),
                 },
                 success: function (response) {
+                    console.log(response);
                     $("#addDetail").hide(100);
-                    const no_trans = get_ymd(date);
-                    // console.log(no_trans + response.dataId);
                     $("#vendor_code").prop("disabled", true);
-                    $("#codeTrans").val(no_trans + response.dataId);
-                    $("#purchase_order_id").val(response.dataId);
+                    $("#codeTrans").val(response.code);
+                    $("#purchase_order_code").val(response.code);
                     $("#detail-list").show(100);
                     // Handle the response here
                 },
@@ -121,7 +120,7 @@ $(async function () {
             let date = $("#date").val();
             let qty_dt = $("#qty_dt").val();
             let price_dt = $("#price_dt").val();
-            let purchase_order_id = $("#purchase_order_id").val();
+            let purchase_order_code = $("#purchase_order_code").val();
 
             if (!product_id) {
                 alert("Produk masih kosong");
@@ -137,7 +136,7 @@ $(async function () {
                         date: date,
                         qty_dt: qty_dt,
                         price_dt: price_dt,
-                        purchase_order_id: purchase_order_id,
+                        purchase_order_code: purchase_order_code,
                     },
                     headers: {
                         "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
@@ -147,7 +146,7 @@ $(async function () {
                     success: function (response) {
                         // Handle the response here
                         $("#add-new").prop("disabled", false);
-                        load_data_detail(purchase_order_id);
+                        load_data_detail(purchase_order_code);
                     },
                     error: function (error) {
                         console.log("Ajax request failed");
@@ -204,7 +203,7 @@ $(async function () {
 
     $(document).on("click", "#delete", function () {
         $("#add-new").prop("disabled", false);
-        let purchase_order_id = $("#purchase_order_id").val();
+        let purchase_order_code = $("#purchase_order_code").val();
         var no = $(this).closest("tr").find("td:eq(0)").text();
         var product = $(this).closest("tr").find("td:eq(1)").text();
         var product_name = product.split("/");
@@ -217,7 +216,7 @@ $(async function () {
                 url: "/purchase-order_detail/delete", // Use the route function to generate the URL
                 data: {
                     product_name: product_name[0],
-                    purchase_order_id: purchase_order_id,
+                    purchase_order_code: purchase_order_code,
                     sequence: no,
                 },
                 headers: {
@@ -228,7 +227,7 @@ $(async function () {
                 success: function (response) {
                     $("#add-new").prop("disabled", false);
                     $("#modal-delete").modal("hide");
-                    load_data_detail(purchase_order_id);
+                    load_data_detail(purchase_order_code);
                 },
                 error: function (error) {
                     console.log("Ajax request failed");
@@ -238,12 +237,12 @@ $(async function () {
     });
 
     $("#saveButton").on("click", () => {
-        let purchase_order_id = $("#purchase_order_id").val();
+        let purchase_order_code = $("#purchase_order_code").val();
         $.ajax({
             type: "POST",
             url: "/submit-purchase_order", // Use the route function to generate the URL
             data: {
-                purchase_order_id: purchase_order_id,
+                purchase_order_code: purchase_order_code,
             },
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -251,7 +250,7 @@ $(async function () {
             success: function (response) {
                 // console.log(response);
                 $("#add-new").prop("disabled", false);
-                load_data_detail(purchase_order_id);
+                load_data_detail(purchase_order_code);
                 // Handle the response here
                 location.href = "/purchase-order";
             },
@@ -265,7 +264,7 @@ $(async function () {
 function updateDetail(no, product_name) {
     let qty_dt = $("#qty_dt").val();
     let price_dt = $("#price_dt").val();
-    let purchase_order_id = $("#purchase_order_id").val();
+    let purchase_order_code = $("#purchase_order_code").val();
     $.ajax({
         type: "POST",
         url: "/purchase-order_detail/edit", // Use the route function to generate the URL
@@ -274,7 +273,7 @@ function updateDetail(no, product_name) {
             sequence: no,
             qty_dt: qty_dt,
             price_dt: price_dt,
-            purchase_order_id: purchase_order_id,
+            purchase_order_code: purchase_order_code,
         },
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -284,7 +283,7 @@ function updateDetail(no, product_name) {
             // console.log(response);
             // Handle the response here
             $("#add-new").prop("disabled", false);
-            load_data_detail(purchase_order_id);
+            load_data_detail(purchase_order_code);
         },
         error: function (error) {
             console.log("Ajax request failed");
@@ -292,7 +291,7 @@ function updateDetail(no, product_name) {
     });
 }
 
-async function load_data_detail(purchase_order_id) {
+async function load_data_detail(purchase_order_code) {
     $("#container-table tbody").html("");
     const headers = new Headers({
         "Content-Type": "application/json",
@@ -300,7 +299,7 @@ async function load_data_detail(purchase_order_id) {
     });
 
     const dataFechhDetail = await fetch(
-        "/getPurchase_order_detail/" + purchase_order_id,
+        "/getPurchase_order_detail/" + purchase_order_code,
         {
             method: "GET",
             headers: headers,

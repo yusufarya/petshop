@@ -15,6 +15,7 @@ use App\Models\Category;
 use App\Models\Customer;
 use App\Models\AdminLevel;
 use App\Models\SubDistrict;
+use App\Models\DeliveryType;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -109,6 +110,19 @@ class DatabaseSeeder extends Seeder
             'code' => '1',
             'name' => 'Vendor A',
             'address' => 'Tangerang',
+        ]);
+
+        
+        DeliveryType::create([
+            'name' => 'Lokal',
+            'description' => 'Pengiriman lokal digunakan untuk pengiriman area tangerang.',
+            'charge' => 5000
+        ]);
+
+        DeliveryType::create([
+            'name' => 'Ekspedisi',
+            'description' => 'Pengiriman menggunakan ekspedisi digunakan untuk pengiriman area luar tangerang.',
+            'charge' => 13000
         ]);
     }
 }

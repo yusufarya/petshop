@@ -20,7 +20,7 @@ body {
     color: #f98771;
 }
 .secondary-color {
-    color: #662e1c;
+    color: #ebe097;
 }
 .bg-primary-color {
     background-color: #f98771;
@@ -29,7 +29,7 @@ body {
     background-color: #5793af;
 }
 .bg-secondary-color {
-    background-color: #662e1c;
+    background-color: #ebe097;
 }
 
 .active-link {
@@ -54,7 +54,7 @@ body {
     width: 100%;
     top: 0;
     left: 0;
-    background-image: linear-gradient(to bottom, #e1f1fa, #c4e7f9, #c4e7f9);
+    background-image: linear-gradient(to bottom, #e1f1fa, #f9c4ed, #c4e7f9);
     /* background-color: #c4e7f9; */
     border-bottom-left-radius: 60px;
     border-bottom-right-radius: 60px;

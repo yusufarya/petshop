@@ -13,18 +13,22 @@ use App\Http\Controllers\FE\HomeController;
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DeliveryController;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\InventoryController;
+use App\Http\Controllers\FE\PaymentController;
 use App\Http\Controllers\FE\ServiceController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\FE\CustomerController;
 use App\Http\Controllers\UpdateStockController;
 use App\Http\Controllers\FE\ProductFEController;
+use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\PurchaseTransactionReport;
 use App\Http\Controllers\TrainingContentController;
+use App\Http\Controllers\DeliveryTransactionController;
 use App\Http\Controllers\PurchaseOrderDetailController;
 
 /*
@@ -107,8 +111,12 @@ Route::middleware('admin')->group(function () {
     Route::post('/submit-purchase_order', [PurchaseOrderController::class, 'submitData']); // SUBMIT TRANSACTION HEADER //
     
     // LIST SALES ORDER TRANSACTION //
-    Route::get('/sales-order', [SalesOrderController::class, 'index']);
-    Route::delete('/delete-sales-order/{id}', [SalesOrderController::class, 'deleteData']);
+    Route::get('/orders', [SalesOrderController::class, 'index']);
+    Route::get('/orders/{code}/detail', [SalesOrderController::class, 'detailOrder']);
+    Route::get('/product_order_details/{sequence}', [SalesOrderController::class, 'productOrderDetails']);
+    Route::delete('/delete-order/{code}', [SalesOrderController::class, 'deleteData']);
+    Route::get('/sales-order', [SalesOrderController::class, 'salesOrder']);
+    Route::post('/update-status-delivery', [SalesOrderController::class, 'updateStatusDelivery']);
     
     Route::get('/settings', [SettingsController::class, 'index']);
     Route::post('/settings', [SettingsController::class, 'update']);
@@ -126,12 +134,41 @@ Route::get('/detail-product/{id}', [ProductFEController::class, 'detail']);
 Route::get('/getDataProducts', [ProductFEController::class, 'getDataProducts']);
 
 Route::middleware('customer')->group(function () {
-    Route::get('/wishlist', [CustomerController::class, 'wishlist']);
+    
+    Route::get('/custom-request', [RequestOrderController::class, 'index']);
+    Route::post('/send-custom-request', [RequestOrderController::class, 'store']);
+    Route::get('/my-req-orders', [RequestOrderController::class, 'myRequestOrders']);
+
+    Route::get('/my-orders', [CustomerController::class, 'myOrders']);
+    Route::post('/acc-order', [CustomerController::class, 'accOrder']);
+
     Route::get('/_profile', [CustomerController::class, 'profile']);
     Route::get('/update-profile', [CustomerController::class, 'updateProfile']);
     Route::put('/update-profile/{number}', [CustomerController::class, 'updateProfileData']);
     Route::get('/getVillages/', [GeneralController::class, 'getVillages']);
     Route::get('/checkDataUser/{id}', [GeneralController::class, 'checkDataUser']);
+    
+    Route::get('/shopping-cart', [ShoppingCartController::class, 'index']);
+    Route::post('/add-to-cart/{id}', [ShoppingCartController::class, 'store']);
+    Route::post('/submit-from-cart', [ShoppingCartController::class, 'submitCart']);
+    
+    // PAYMENT SALES ORDER //
+    Route::get('/payment/{code}', [PaymentController::class, 'index']);
+    Route::get('/payment/{code}/{page}', [PaymentController::class, 'index']);
+    Route::post('/prosesPayOrder', [PaymentController::class, 'prosesPayOrder']);
+    Route::get('/pay-order/{code}', [PaymentController::class, 'payOrder']);
+    Route::post('/updatePaymentMethod', [PaymentController::class, 'updatePaymentMethod']);
+    Route::post('/uploadImgPayment', [PaymentController::class, 'uploadImgPayment']);
+    Route::delete('/cancel-order', [PaymentController::class, 'cancelOrders']);
+
+    // =============== MODULE PENGIRIMAN ================== //
+    Route::resource('/delivery-types', DeliveryController::class)->only("index", "store", "update", "destroy");
+    Route::get('/delivery', [DeliveryTransactionController::class, 'index']);
+    Route::post('/update-status-delivery-d', [DeliveryTransactionController::class, 'updateStatusDelivery']);
+
+    // =============== MODULE KEUANGAN =============== //
+    // PAYMENT METHOD //
+    Route::resource('/payment-method', PaymentMethodController::class)->only("index", "store", "update", "destroy");
     
     Route::post('/logout', [CustomerController::class, 'logout']);
 });
