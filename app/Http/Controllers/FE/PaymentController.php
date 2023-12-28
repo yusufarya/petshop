@@ -69,11 +69,11 @@ class PaymentController extends Controller
                 'charge' => $request->charge
             ];
         }
-        // dd($request);
+        // dd($orderDT);
 
-        $user = Customer::find(Auth::guard('customer')->user()->code)->first();
+        $code_pelanggan = Auth::guard('customer')->user()->code;
 
-        SalesOrder::where(['customer_code' => $user->code, 'code' => $sales_order_code])->update($orderHD);
+        SalesOrder::where(['customer_code' => $code_pelanggan, 'code' => $sales_order_code])->update($orderHD);
         SalesOrderDetail::where(['sales_order_code' => $sales_order_code])->update($orderDT);
         
         $order_result = SalesOrder::with('salesOrderDetails.products.categories', 'salesOrderDetails.products.sizes', 'salesOrderDetails.products.brands')

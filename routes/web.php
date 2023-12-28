@@ -24,6 +24,7 @@ use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\FE\CustomerController;
 use App\Http\Controllers\UpdateStockController;
 use App\Http\Controllers\FE\ProductFEController;
+use App\Http\Controllers\SalesTransactionReport;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\PurchaseTransactionReport;
@@ -160,6 +161,10 @@ Route::middleware('customer')->group(function () {
     Route::post('/updatePaymentMethod', [PaymentController::class, 'updatePaymentMethod']);
     Route::post('/uploadImgPayment', [PaymentController::class, 'uploadImgPayment']);
     Route::delete('/cancel-order', [PaymentController::class, 'cancelOrders']);
+
+    Route::get('/sales-report', [SalesTransactionReport::class, 'index']); // VIEW REPORT PURCASE TRANSACTION //
+    Route::get('/sales-rpt', [SalesTransactionReport::class, 'salesReport']); // SROTE REQUEST TO SESSION //
+    Route::get('/open-sales-rpt', [SalesTransactionReport::class, 'openSalesReport']); // OPEN REPORT PURCASE TRANSACTION //
 
     // =============== MODULE PENGIRIMAN ================== //
     Route::resource('/delivery-types', DeliveryController::class)->only("index", "store", "update", "destroy");

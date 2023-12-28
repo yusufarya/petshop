@@ -28,7 +28,7 @@
             <div class="col-md-4">
               <label for="status"> Status Pengiriman</label>
               <select name="delivery" id="delivery" class="form-select form-control">
-                <option value=""> Pilih </option>
+                <option value=""> Pilih Semua </option>
                 {{-- <option value="0" {{ $delivery == '0' ? 'selected' : '' }}> Pemesanan</option> --}}
                 <option value="1" {{ $delivery == '1' ? 'selected' : '' }}> Siap untuk dikirim</option>
                 <option value="2" {{ $delivery == '2' ? 'selected' : '' }}> Dalam Perjalanan Pengiriman</option>
