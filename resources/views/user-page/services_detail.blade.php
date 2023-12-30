@@ -28,44 +28,27 @@
     </div>
 
     <div class="col mx-3">
-        <h4 style="font-size: 28px; font-weight: 700; text-transform: uppercase;"> {{ $service->title }} </h4>
+        <h4 style="font-size: 28px; font-weight: 700; text-transform: uppercase;"> {{ $service->name }} </h4>
         <div class="mb-2">
-            <small class="alert alert-warning py-0">{{ $service->category->name }}</small>
+            <small class="alert alert-warning py-0">{{ $service->categories->name }}</small>
         </div>
         <p>
             <small class="card-text"> 
-                <i class="fas fa-calendar-minus me-2"></i>  
-                Periode
-                {{ date('d M Y', strtotime($setting->start_date)) }} s/d
-                {{ date('d M Y', strtotime($setting->end_date)) }}
+                <i class="fas fa-hourglass-end me-2"></i>
+                Durasi
+                {{ $service->duration }} {{ $service->type }}
+            </small><br>
+            <small class="card-text"> 
+                <i class="fas fa-comment-dollar me-2"></i>
+                Harga
+                {{ number_format($service->price) }}
             </small>
         </p>
         <p class="text-black " style="font-size: 16.5px; line-height: 1.6; text-align: justify"><?= $service->description ?></p>
-        <a href="/checkDataUser/{{$service->id}}" class="btn bg-secondary-color text-white"><i class="fab fa-get-pocket"></i> Daftar Sekarang</a>
+        <a href="/checkDataUserService/{{$service->id}}" class="btn bg-secondary-color text-dark"><i class="fab fa-get-pocket"></i> Pesan Sekarang</a>
 
     </div>
     <hr class="mx-3 mt-3">
-    
-    <div class="card mx-3 mt-3">
-    @foreach ($services_detail as $item)
-        <div class="row pt-2 justify-content-start">
-            <div class="col-md-3">
-                <div id="simple-list-example" class="d-flex flex-column gap-2 simple-list-example-scrollspy">
-                    <a class="p-1 rounded text-left text-decoration-none primary-color" href="#simple-list-item-{{$item->id}}"> » &nbsp; {{ $item->title }}</a>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div data-bs-spy="scroll" data-bs-target="#simple-list-example" data-bs-offset="0" data-bs-smooth-scroll="true" class="scrollspy-example" tabindex="0">
-                    <h6 id="simple-list-item-{{$item->id}}" class="font-weight-bolder"> <b>Kontent {{ $item->title }}</b> </h6>
-                    <p class="text-justify">{{ $item->description }}</p>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <img src="{{ asset('/storage/'.$item->images) }}" alt="">
-            </div>
-        </div>
-    @endforeach
-    </div>
 
   </div>
 

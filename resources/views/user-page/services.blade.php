@@ -10,10 +10,10 @@
         </div>
         <div class="carousel carousel-inner">
           <div class="carousel-item item active">
-          <img src="{{ asset('img/p2.png') }}" class="d-block w-100" alt="p2">
+          <img src="{{ asset('img/header1.png') }}" class="d-block w-100" alt="header1">
         </div>
         <div class="carousel-item item">
-          <img src="{{ asset('img/p1.png') }}" class="d-block w-100" alt="p1">
+          <img src="{{ asset('img/header2.png') }}" class="d-block w-100" alt="header2">
         </div> 
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -33,14 +33,14 @@
 <div class="explain-product my-4">
   <div class="heading text-center ">
     <div class="pt-3">
-      <h3 style="font-size: 26px; font-weight: 600"> Pilih Program Impian </h3>
+      <h3 style="font-size: 26px; font-weight: 600"> Pilih Layanan Kebutuhan Anda </h3>
     </div>
   </div>
 
   <div class="row mt-3">
     <section class="mb-1 row">
       <div class="col-lg-10" style="width: 92%; padding-right: 0 !important;">
-        <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Apa yg ingin anda pelajari ?">
+        <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Apa yg ingin anda cari ?">
       </div>
       <div class="col" style="width: 8%; padding: 0 !important;">
         <button class="btn btn-info float-end">

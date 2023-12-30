@@ -29,6 +29,7 @@ use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PurchaseOrderController;
 use App\Http\Controllers\PurchaseTransactionReport;
 use App\Http\Controllers\TrainingContentController;
+use App\Http\Controllers\FE\PaymentServiceController;
 use App\Http\Controllers\DeliveryTransactionController;
 use App\Http\Controllers\PurchaseOrderDetailController;
 
@@ -134,6 +135,11 @@ Route::get('/our-products/{id}', [ProductFEController::class, 'index']);
 Route::get('/detail-product/{id}', [ProductFEController::class, 'detail']);
 Route::get('/getDataProducts', [ProductFEController::class, 'getDataProducts']);
 
+Route::get('/service-form', [ServiceController::class, 'serviceForm']);
+Route::get('/our-services', [ServiceController::class, 'index']);
+Route::get('/getDataServices', [ServiceController::class, 'getDataServices']);
+Route::get('/detail-services/{id}', [ServiceController::class, 'detail']);
+
 Route::middleware('customer')->group(function () {
     
     Route::get('/custom-request', [RequestOrderController::class, 'index']);
@@ -146,8 +152,12 @@ Route::middleware('customer')->group(function () {
     Route::get('/_profile', [CustomerController::class, 'profile']);
     Route::get('/update-profile', [CustomerController::class, 'updateProfile']);
     Route::put('/update-profile/{number}', [CustomerController::class, 'updateProfileData']);
-    Route::get('/getVillages/', [GeneralController::class, 'getVillages']);
-    Route::get('/checkDataUser/{id}', [GeneralController::class, 'checkDataUser']);
+    
+    // check pesan sekarang (produk)
+    Route::get('/checkDataUser/{id}', [GeneralController::class, 'checkDataUser']); 
+
+    // check pesan sekarang (layanan)
+    Route::get('/checkDataUserService/{id}', [GeneralController::class, 'checkDataUserService']);
     
     Route::get('/shopping-cart', [ShoppingCartController::class, 'index']);
     Route::post('/add-to-cart/{id}', [ShoppingCartController::class, 'store']);
@@ -161,6 +171,16 @@ Route::middleware('customer')->group(function () {
     Route::post('/updatePaymentMethod', [PaymentController::class, 'updatePaymentMethod']);
     Route::post('/uploadImgPayment', [PaymentController::class, 'uploadImgPayment']);
     Route::delete('/cancel-order', [PaymentController::class, 'cancelOrders']);
+
+    
+    // PAYMENT REQUEST ORDER //
+    Route::get('/payment-service/{code}', [PaymentServiceController::class, 'index']);
+    // Route::get('/payment-req/{code}/{page}', [PaymentServiceController::class, 'index']);
+    Route::post('/prosesPayOrder-req', [PaymentServiceController::class, 'prosesPayOrder']);
+    Route::get('/pay-order-req/{code}', [PaymentServiceController::class, 'payOrder']);
+    // Route::post('/updatePaymentMethod', [PaymentServiceController::class, 'updatePaymentMethod']);
+    Route::post('/uploadImgPayment-req', [PaymentServiceController::class, 'uploadImgPayment']);
+    Route::delete('/cancel-order-req', [PaymentServiceController::class, 'cancelOrders']);
 
     Route::get('/sales-report', [SalesTransactionReport::class, 'index']); // VIEW REPORT PURCASE TRANSACTION //
     Route::get('/sales-rpt', [SalesTransactionReport::class, 'salesReport']); // SROTE REQUEST TO SESSION //

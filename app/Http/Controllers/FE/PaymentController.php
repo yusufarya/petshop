@@ -19,7 +19,7 @@ class PaymentController extends Controller
         $filename_script = getContentScript(false, $filename);
 
         $code = Auth::guard('customer')->user()->code;
-        $data = Customer::find($code)->first();  
+        $data = Customer::find($code);
         
         $result = SalesOrder::with('salesOrderDetails.products.categories', 'salesOrderDetails.products.sizes', 'salesOrderDetails.products.brands')
                 ->find($code_tr);

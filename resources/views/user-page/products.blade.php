@@ -32,7 +32,7 @@
 <div class="explain-product my-4">
   <div class="heading text-center ">
     <div class="pt-3">
-      <h3 style="font-size: 26px; font-weight: 600"> Pilih Program Impian </h3>
+      <h3 style="font-size: 26px; font-weight: 600"> Pilih Produk Impian </h3>
     </div>
   </div>
 

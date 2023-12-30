@@ -20,6 +20,7 @@ return new class extends Migration
             $table->double('duration')->default(0);;
             $table->string('type');
             $table->double('price')->default(0);;
+            $table->double('stock')->default(1);
             $table->enum('is_active', ['Y','N'])->default('Y');
             $table->text('image')->nullable();
             $table->dateTime('created_at')->nullable()->default(date('Y-m-d H:i:s'));

@@ -15,12 +15,12 @@ return new class extends Migration
             $table->char('code', 20)->primary();
             $table->char('customer_code');
             $table->foreign('customer_code')->on('customers')->references('code');
-            $table->unsignedBigInteger('size_id');
-            $table->char('service_id');
-            $table->foreign('service_id')->on('customers')->references('id');
-            $table->dateTime('date')->nullable();
-            $table->string('description', 200);
-            $table->double('qty')->default(0);
+            $table->unsignedBigInteger('service_id');
+            $table->foreign('service_id')->on('services')->references('id');
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            $table->string('description', 200)->nullable();
+            $table->integer('grooming_id')->default(0);
             $table->double('price')->default(0);
             $table->double('charge')->default(0);
             $table->double('nett')->default(0);

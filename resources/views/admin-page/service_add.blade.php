@@ -83,7 +83,17 @@
                                     @enderror
                                 </div>
                                 
-                                <div class="col-lg-12 col-md-12 col-sm-12 mt-2">
+                                <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                                    <label for="stock">Stok</label>
+                                    <input type="text" class="form-control @error('stock')is-invalid @enderror" name="stock" id="stock" value="{{ old('stock') }}" onkeyup="onlyNumbers(this);" style="text-align: right;">
+                                    @error('stock')
+                                    <small class="invalid-feedback">
+                                        Stok {{ $message }}
+                                    </small>
+                                    @enderror
+                                </div>
+                                
+                                <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
                                     <label for="price">Harga</label>
                                     <input type="text" class="form-control @error('price')is-invalid @enderror" name="price" id="price" value="{{ old('price') }}" onkeyup="formatRupiah(this, this.value);" style="text-align: right;">
                                     @error('price')

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Service;
 use App\Models\Customer;
 use App\Models\SalesOrder;
+use App\Models\ServiceOrder;
 use Illuminate\Http\Request;
 use App\Models\SalesOrderDetail;
 use Illuminate\Support\Facades\DB;
@@ -80,6 +82,70 @@ class GeneralController extends Controller {
             SalesOrderDetail::create($dataDetail);
 
             return redirect('/payment/'.$code);
+            
+        }
+        
+    }
+    
+    function checkDataUserService(Request $request, int $serviceId) {
+        $user = Auth::guard('customer')->user();
+        // dd($serviceId);
+        if($user->place_of_birth == null OR
+            $user->date_of_birth == null OR 
+            $user->phone == null OR 
+            $user->address == null
+        ) {
+            $request->session()->flash('message', 'Anda belum bisa melakukan pemesanan, lengkapi data untuk melanjutkan.');
+            return redirect('/detail-services/'.$serviceId);
+        } else {
+
+            $productData = Service::with('categories')->where(['id' => $serviceId])->first();
+            // $stock =  $productData->inventory ? $productData->inventory->stock : 0;
+
+            // if($stock <= 0) {
+            //     $request->session()->flash('message', 'Layanan yang anda pilih telah habis.');
+            //     return redirect('/detail-services/'.$serviceId);
+            // }
+
+            $checServiceskOrder = ServiceOrder::with('categories')
+                                ->where(['customer_code' => $user->code])
+                                ->first();
+            // dd($checServiceskOrder);
+            if($checServiceskOrder) {
+                if($checServiceskOrder->status == 'N') {
+                
+                    if($serviceId == $checServiceskOrder->id) {
+                        $request->session()->flash('message', 'Anda mempunyai pesanan pada layanan yang sama, <a href="/payment/'.$checServiceskOrder->code.'">lihat pesanan</a>.');
+                        return redirect('/detail-services/'.$serviceId);
+                    }
+                }
+            }
+
+            // exit;
+
+            $dataHeader = [
+                'customer_code' => $user->code,
+                'service_id' => $serviceId,
+                'date' => date('Y-m-d'),
+            ];
+
+            if($checServiceskOrder) {
+                if($checServiceskOrder->status == 'Y') {
+                    $code = getLasCodeTransaction('R');
+        
+                    $dataHeader['code'] = $code;
+                    ServiceOrder::create($dataHeader);
+                } else {
+                    $code = $checServiceskOrder->code;
+                }
+            } else {
+                $code = getLasCodeTransaction('R');
+    
+                $dataHeader['code'] = $code;
+                ServiceOrder::create($dataHeader);
+            }
+            
+            return redirect('/payment/'.$code.'/true');
             
         }
         

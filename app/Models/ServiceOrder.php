@@ -26,8 +26,4 @@ class ServiceOrder extends Model
         return $this->belongsTo(Customer::class, 'customer_code', 'code');
     }
 
-    public function sizes(): BelongsTo
-    {
-        return $this->belongsTo(Size::class, 'size_id', 'id');
-    }
 }

@@ -5,6 +5,7 @@ use App\Models\Training;
 use App\Models\SalesOrder;
 use App\Models\DeliveryType;
 use App\Models\OrderPayment;
+use App\Models\ServiceOrder;
 use App\Models\PurchaseOrder;
 use Illuminate\Support\Facades\DB;
 
@@ -20,10 +21,9 @@ function last_query() {
     dd(DB::getQueryLog());
 }
 
-function getCharge($type = '') {
-    if(!$type) {
-        return DeliveryType::first();
-    }
+function getCharge(int $type) {
+    $type = $type ? $type : 1;
+    return DeliveryType::find($type);
 }
 
 function getLastPayCode() {
@@ -44,7 +44,6 @@ function getLasCodeTransaction($type) {
     
     if($type == 'P') {
         $lastNumber = PurchaseOrder::max('code');
-        
     
         if($lastNumber) {
             $lastNumber = substr($lastNumber, -3);

@@ -56,6 +56,7 @@ class ServicesController extends Controller
             'category_id'   => 'required',
             'duration'      => 'required',
             'type'          => 'required',
+            'stock'         => 'required',
             'price'         => 'required',
             'image'         => 'file|image|max:1024'
         ]);
@@ -118,11 +119,11 @@ class ServicesController extends Controller
         $validatedData = $request->validate([
             'name'          => 'required|max:50',
             'category_id'   => 'required',
-            'unit_id'       => 'required',
-            'size_id'       => 'required',
-            'purchase_price'=> 'required',
-            'selling_price' => 'required',
-            'image'         => 'image|file|max:1024'
+            'duration'      => 'required',
+            'type'          => 'required',
+            'stock'         => 'required',
+            'price'         => 'required',
+            'image'         => 'file|image|max:1024'
         ]);
 
         if($request->file('image')) {
@@ -130,11 +131,10 @@ class ServicesController extends Controller
         }
         
         $validatedData['name'] = ucwords($validatedData['name']);
-        $validatedData['purchase_price'] = cleanSpecialChar($validatedData['purchase_price']);
-        $validatedData['selling_price'] = cleanSpecialChar($validatedData['selling_price']);
+        $validatedData['price'] = cleanSpecialChar($validatedData['price']);
         $validatedData['description'] = $request->description;
-        $validatedData['created_at'] = date('Y-m-d H:i:s');
-        $validatedData['created_by'] = Auth::guard('admin')->user()->username;
+        $validatedData['updated_at'] = date('Y-m-d H:i:s');
+        $validatedData['updated_by'] = Auth::guard('admin')->user()->username;
         // dd($validatedData);
         $result = Service::where(['id' => $id])->update($validatedData);
         if($result) {
