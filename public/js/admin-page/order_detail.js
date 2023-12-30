@@ -28,6 +28,7 @@ function detail(sequence, name) {
                 $("#name").text(item.products.name);
                 $("#category").text(item.products.categories.name);
                 $("#size").text(item.products.sizes.name);
+                $("#price").text(replaceRupiah(item.products.selling_price));
             } else {
             }
         },

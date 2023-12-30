@@ -27,6 +27,7 @@ use App\Http\Controllers\FE\ProductFEController;
 use App\Http\Controllers\SalesTransactionReport;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PurchaseOrderController;
+use App\Http\Controllers\FE\ShoppingCartController;
 use App\Http\Controllers\PurchaseTransactionReport;
 use App\Http\Controllers\TrainingContentController;
 use App\Http\Controllers\FE\PaymentServiceController;
@@ -162,6 +163,7 @@ Route::middleware('customer')->group(function () {
     Route::get('/shopping-cart', [ShoppingCartController::class, 'index']);
     Route::post('/add-to-cart/{id}', [ShoppingCartController::class, 'store']);
     Route::post('/submit-from-cart', [ShoppingCartController::class, 'submitCart']);
+    Route::delete('/submit-del-cart', [ShoppingCartController::class, 'deleteCart']);
     
     // PAYMENT SALES ORDER //
     Route::get('/payment/{code}', [PaymentController::class, 'index']);

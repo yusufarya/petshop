@@ -86,7 +86,7 @@ class Customer extends Authenticatable
         //         ->where(['customer_code' => Auth::guard('customer')->user()->code])->get();
 
         $data = SalesOrder::with('customers', 'salesOrderDetails.products.categories', 'salesOrderDetails.products.brands', 'salesOrderDetails.products.sizes')
-                            ->where($where_)->get();
+                            ->where($where_)->orderBy('code', 'DESC')->get();
         return $data;
     }
     

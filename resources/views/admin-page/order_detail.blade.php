@@ -105,7 +105,7 @@
         </div>
         <div class="modal-body">
             <div class="row" id="content-detail">
-                <div class="col-md-5 col-lg-5">
+                <div class="col-md-4 col-lg-4">
                     <img src="" alt="img-product" class="img-fluid" id="img-product">
                 </div>
                 <div class="col">
@@ -124,6 +124,11 @@
                             <th>Ukuran</th>
                             <td>:&nbsp;</td>
                             <td id="size"></td>
+                        </tr>
+                        <tr>
+                            <th>Harga Satuan</th>
+                            <td>:&nbsp;</td>
+                            <td id="price"></td>
                         </tr>
                     </table>
                 </div>

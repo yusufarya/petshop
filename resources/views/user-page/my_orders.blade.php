@@ -112,7 +112,7 @@
                                   @break
                               @case(3)
                                   <div class="alert alert-warning py-1 mt-4">Pesanan telah sampai tujuan</div>
-                                  <button type="button" class="btn button-submit" onclick="acc_order(`{{ $order_code }}`)">Terima Pesanan</button>
+                                  <button type="button" class="btn button-submit btn-danger" onclick="acc_order(`{{ $order_code }}`)">Terima Pesanan</button>
                                   @break
                               @case(4)
                                   <div class="alert alert-success py-1 mt-4">Pesanan telah diterima</div>

@@ -38,6 +38,10 @@
             <small class="card-text"> 
                 Ukuran : {{ $product->sizes->initial }}
             </small><br>
+            <br>
+            <small class="card-text"> 
+                Harga : {{ number_format($product->selling_price,2) }}
+            </small>
         </p>
         <p class="text-black " style="font-size: 16.5px; line-height: 1.6; text-align: justify"><?= $product->description ?></p>
         

@@ -31,9 +31,13 @@ class ProductFEController extends Controller
         } else {
             $filter = ['is_active' => (string)$active];
         }
+        $search_name = $request->search_name;
 
-        $products = Product::with('categories', 'sizes')->where($filter)->get();
-        
+        $products = Product::with('categories', 'sizes')
+                            ->where($filter)
+                            ->where('name', 'like', '%' . $search_name . '%')
+                            ->get();
+                            
         $result = array('status' => 'success', 'products' => $products);
         
         echo json_encode($result);
