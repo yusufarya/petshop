@@ -4,7 +4,7 @@ namespace App\Http\Controllers\FE;
 
 use App\Models\Customer;
 use App\Models\SalesOrder;
-use App\Models\RequestOrder;
+use App\Models\ServiceOrder;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -199,12 +199,12 @@ class CustomerController extends Controller
 
     function accOrder(Request $request) {
         $code = substr($request->code, 0,2);
-        
+        // dd($request);
         $code = substr($request->code, 0,2);
         if($code == 'ST') {
             $result = SalesOrder::where('code', $request->code)->update(['delivery' => $request->delivery]);
-        } else if($code == 'CR') {
-            $result = RequestOrder::where('code', $request->code)->update(['delivery' => $request->delivery]);
+        } else if($code == 'SE') {
+            $result = ServiceOrder::where('code', $request->code)->update(['delivery' => $request->delivery]);
         }
 
         if($result) {

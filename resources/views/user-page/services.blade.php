@@ -30,42 +30,24 @@
 
 @section('content-pages')
 
-<div class="explain-product my-4">
-  <div class="heading text-center ">
-    <div class="pt-3">
-      <h3 style="font-size: 26px; font-weight: 600"> Pilih Layanan Kebutuhan Anda </h3>
-    </div>
+<div class="row mx-1 mt-5">
+  <div class="card p-3">
+    <h5 class="ms-3">Layanan Petshop</h5>
+    <ol type="1">
+      <li> Penitipan Hewan</li>
+      <li> Pemeliharaan Hewan Seperti</li>
+      <li> Grooming atau pemandian peliharaan</li>
+      <ul>
+        <li>Mandi Biasa : RP. 40.000</li>
+        <li>Mandi Jamur : RP. 65.000 </li>
+        <li>Mandi Kutu : RP. 65.000</li>
+        <li>Mandi Komplit : RP. 80.000</li>
+      </ul>
+      <li>Bisa antar jemput hewan peliharaan anda</li>
+    </ol>
+
+    <a href="/service-form" class="btn btn-info"> Pesan Sekarang</a>
   </div>
-
-  <div class="row mt-3">
-    <section class="mb-1 row">
-      <div class="col-lg-10" style="width: 92%; padding-right: 0 !important;">
-        <input type="text" class="form-control" name="keyword" id="keyword" placeholder="Apa yg ingin anda cari ?">
-      </div>
-      <div class="col" style="width: 8%; padding: 0 !important;">
-        <button class="btn btn-info float-end">
-          <i class="fas fa-search pe-2"></i> Cari
-        </button>
-      </div>
-    </section>
-    <section class="pt-1">
-      <div class="justify-content-center">
-        <button class="alert alert-light py-0 mx-1 btn-category-all" data-id="all" onclick="getCategory('all')">Semua Kategori</button>
-        @foreach ($category as $item)
-          <button class="alert alert-light py-0 mx-1 btn-category-{{$item->id}}" data-id="{{$item->id}}" onclick="getCategory({{$item->id}})">{{$item->name}}</button>
-          @endforeach
-      </div>
-      <input type="hidden" name="count-id-category" id="count-id-category" value="{{ count($category) }}">
-      <input type="hidden" name="category" id="category" value="">
-      
-    </section>
-
-    <div class="row" id="services-list">
-      <div class="text-center mt-3">Sedang memuat...</div>
-      {{-- load in javascript --}}
-    </div>
-
-  </div>
-</div>
+</div> 
 
 @endsection

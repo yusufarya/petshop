@@ -22,7 +22,7 @@ if(auth('customer')->user()) {
               <a class="nav-link {{ Request::segment(1) == 'our-products' ? 'active-link' : '' }}" aria-current="page" href="/our-products">Produk</a>
             </li>
             <li class="nav-item mx-2">
-              <a class="nav-link {{ Request::segment(1) == 'our-services' ? 'active-link' : '' }}" href="/our-services">Layanan</a>
+              <a class="nav-link {{ Request::segment(1) == 'our-services' || Request::segment(1) == 'service-form' ? 'active-link' : '' }}" href="/our-services">Layanan</a>
             </li>
             
             {{-- <li class="nav-item mx-2 dropdown">

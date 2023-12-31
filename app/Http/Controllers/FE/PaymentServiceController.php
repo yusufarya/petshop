@@ -77,22 +77,22 @@ class PaymentServiceController extends Controller
     function payOrder(string $req_order_code) {
         
         if($req_order_code) {
-            $filename = 'pay_order_req';
+            $filename = 'pay_order_service';
             $filename_script = getContentScript(false, $filename);
     
             $user = Customer::find(Auth::guard('customer')->user()->code)->first();
             
             $payment_method = PaymentMethod::get();  
             
-            $result = ServiceOrder::with('sizes', 'customers')->find($req_order_code);
+            $result = ServiceOrder::with('customers')->find($req_order_code);
             
             if(!$result) {
                 return redirect('/');    
             }
     
             $checkOrderPayment = OrderPayment::where(['order_code' => $req_order_code])->first();
+            // dd($checkOrderPayment);
     
-            // dd($result);
             return view('user-page.'.$filename, [
                 'script' => $filename_script,
                 'title' => 'Pembayaran',
@@ -131,8 +131,7 @@ class PaymentServiceController extends Controller
 
     function cancelOrders(Request $request) {
         // dd($request->code);
-        $salesDetail = SalesOrderDetail::where(['req_order_code' => $request->code])->delete();
-        $sales = SalesOrder::where(['code' => $request->code])->delete();
+        $salesDetail = ServiceOrder::where(['code' => $request->code])->delete();
         return true;
     }
 }

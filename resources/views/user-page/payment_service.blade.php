@@ -12,14 +12,9 @@
     <div class="row mt-3 bg-secondary-color mx-3">
 
         <div class="alert alert-danger">
-            <b>Alamat Pengiriman</b> : {{ $auth_user->address }}</b> &nbsp;
+            <b>Alamat Lengkap Anda</b> : {{ $auth_user->address }}</b> &nbsp;
             <b>No. Telp</b> : {{ $auth_user->phone }}</b>
-        </div>
-
-        <?php 
-            $charge = getCharge()->charge;
-            $total_price = 0;
-        ?>
+        </div> 
     
         
         <div class="row bg">
@@ -35,62 +30,74 @@
             </div>
         
             <div class="col mx-3">
-                <h4 style="font-size: 28px; font-weight: 700; text-transform: uppercase;"> sdsadsada  </h4>
+                <h4 style="font-size: 28px; font-weight: 700; text-transform: uppercase;"> Rincian Layanan </h4>
                 
                 <p>
-                    <small class="card-text"> 
-                        {{-- Ukuran : {{ $resultData->sizes->initial }} --}}
-                    </small><br>
+                    <strong class="card-text"> 
+                        Kategori : {{ $resultData->category_id == 1 ? 'Kucing' : "Anjing " }}
+                    </strong><br>
+                    <?php 
+                    
+                        $tgl1 = new DateTime($resultData->start_date);
+                        $tgl2 = new DateTime($resultData->end_date);
+                        $jarak = $tgl2->diff($tgl1);
+                        $durasi = $jarak->days;
+
+                        $penitipan = $resultData->category_id == 1 ? 35000 : 40000;
+                        // dd($penitipan);
+                        
+                    ?>
+                    @if ($resultData->custody)
+                        <strong class="card-text"> 
+                            Penitipan  : {{ $durasi }} / Hari <sub>x</sub> {{ $resultData->category_id == 1 ? 'Rp. 35.000' : "40.0000" }} =
+                            {{ number_format($durasi*$penitipan,2) }}
+                        </strong><br>
+                    @endif
+                        
+                    <strong class="card-text"> 
+                        {{ $resultData->pick_up == 'Y' ? 'Antar Jemput Rp. 35.000' : "Bawa Sendiri 5.000" }}
+                    </strong><br>
                 </p>
-                {{-- <p class="text-black " style="font-size: 16.5px; line-height: 1.6; text-align: justify"><?= $resultData->description ?></p> --}}
-                <div class="row">
-                    <div class="col-md-2">Quantity</div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2">
-                        <input type="number" onchange="changeQty()" onkeyup="onlyNumbers(this)" name="qty_dt" id="qty_dt" class="form-control" value="{{ $resultData->qty ? $resultData->qty : '1' }}" >
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">Harga</div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2">
-                        <input type="text" name="price_dt" id="price_dt" class="form-control bg-transparent" readonly value="{{ number_format($resultData->price,2) }}">
-                        <input type="hidden" name="price" id="price" class="form-control bg-transparent" readonly value="{{ $resultData->price }}">
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-2">Total Harga</div>
-                    <div class="col-md-2"></div>
-                    <div class="col-md-2">
-                        <input type="text" name="vtotal_price" id="vtotal_price" class="form-control bg-transparent" readonly value="{{ $resultData->qty ? number_format($resultData->price*$resultData->qty,2) : number_format($resultData->price,2) }}">
-                        <input type="hidden" name="total_price" id="total_price" class="form-control bg-transparent" readonly value="{{ $resultData->qty ? $resultData->price*$resultData->qty : $resultData->price }}">
-                    </div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-2">Jenis Pengiriman</div>
-                    <div class="col-md-2"><span class="alert alert-success py-0">Local</span></div>
-                    <div class="col-md-2">
-                        <input type="text" name="charge_" id="charge_" class="form-control bg-transparent" readonly value="{{ number_format($charge,2) }}">
-                        <input type="hidden" name="charge" id="charge" class="form-control bg-transparent" readonly value="{{$charge}}">
-                    </div>
-                </div>
+                <p class="text-black " style="font-size: 16.5px; line-height: 1.6; text-align: justify"><?= $resultData->description ?></p>
+                <?php 
+                $gromming = explode(',', $resultData->grooming_code);
+                ?>
+                <h6>Grooming / Perawatan Hewan</h6>
+
+                @foreach ($gromming as $item)
+                <ul>
+                    @if ($item == 'gm1')
+                        <li class="form-check-label" for="grooming1">
+                            Mandi Biasa RP. 40.000
+                        </li>
+                    @endif
+                    @if ($item == 'gm2')
+                        <li class="form-check-label" for="grooming2">
+                            Mandi Jamur RP. 65.000
+                        </li>
+                    @endif
+                    @if ($item == 'gm3')
+                        <li class="form-check-label" for="grooming3">
+                            Mandi Kutu RP. 65.000
+                        </li>
+                    @endif
+                    @if ($item == 'gm4')
+                        <li class="form-check-label" for="grooming4">
+                            Mandi Komplit RP. 65.000
+                        </li>
+                    @endif
+                </ul>
+                @endforeach 
             </div>
             <hr class="mx-3 mt-3">
             
         </div>
-        <?php 
-            if($resultData->qty) {
-                $total_price += ($resultData->price*$resultData->qty)+$charge;
-                // echo $total_price;
-            }
-        ?>
-        
 
         <div class="row mt-3 px-4">
             <div class="col-md-4"><b>Total Pembayaran</b></div>
             <div class="col-md-2">
-                <input type="text" name="vnetto" id="vnetto" class="form-control bg-transparent" style="font-weight: 600; border:none;" readonly value="{{ number_format($total_price,2) }}">
-                <input type="hidden" name="netto" id="netto" class="form-control bg-transparent" style="font-weight: 600; border:none;" readonly value="{{ $total_price }}">
+                <input type="text" name="vnetto" id="vnetto" class="form-control bg-transparent" style="font-weight: 600; border:none;" readonly value="{{ number_format($resultData->price,2) }}">
+                <input type="hidden" name="netto" id="netto" class="form-control bg-transparent" style="font-weight: 600; border:none;" readonly value="{{ $resultData->price }}">
             </div>
         </div>
 

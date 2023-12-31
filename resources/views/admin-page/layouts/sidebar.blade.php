@@ -162,7 +162,7 @@
                 </li> 
                 
                 {{-- <li class="nav-header">Penjualan</li> --}}
-                <li class="nav-item {{ Request::segment(1) === 'orders' || Request::segment(1) === 'sales-order' || Request::segment(1) === 'sales-report' || Request::segment(1) === 'request-order' ? 'menu-is-opening menu-open' : '' }}" {{ $level_user == 3 ? 'hidden' : '' }}>
+                <li class="nav-item {{ Request::segment(1) === 'orders' || Request::segment(1) === 'sales-order' || Request::segment(1) === 'sales-report' || Request::segment(1) === 'service-report' || Request::segment(1) === 'service-order' ? 'menu-is-opening menu-open' : '' }}" {{ $level_user == 3 ? 'hidden' : '' }}>
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-shopping-cart"></i>
                         <p>
@@ -171,16 +171,18 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-3">
+                        
+                        <li class="nav-item">
+                            <a href="/service-order" class="nav-link {{ Request::segment(1) === 'service-order' ? 'submenu-active' : '' }}">
+                                » &nbsp;
+                                <p> Order Layanan </p>
+                            </a> 
+                        </li>
+
                         <li class="nav-item">
                             <a href="/orders" class="nav-link {{ Request::segment(1) === 'orders' ? 'submenu-active' : '' }}">
                                 » &nbsp;
                                 <p>Pesanan </p>
-                            </a> 
-                        </li>
-                        <li class="nav-item">
-                            <a href="/request-order" class="nav-link {{ Request::segment(1) === 'request-order' ? 'submenu-active' : '' }}">
-                                » &nbsp;
-                                <p>Request Order </p>
                             </a> 
                         </li>
                         <li class="nav-item">
@@ -193,6 +195,12 @@
                             <a href="/sales-report" class="nav-link {{ Request::segment(1) === 'sales-report' ? 'submenu-active' : '' }}">
                                 » &nbsp;
                                 <p>Laporan Penjualan</p>
+                            </a> 
+                        </li>
+                        <li class="nav-item">
+                            <a href="/service-report" class="nav-link {{ Request::segment(1) === 'service-report' ? 'submenu-active' : '' }}">
+                                » &nbsp;
+                                <p>Laporan Pelayanan</p>
                             </a> 
                         </li>
                     </ul>

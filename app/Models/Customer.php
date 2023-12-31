@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Grade;
 use App\Models\SalesOrder;
 use App\Models\SubDistrict;
+use App\Models\ServiceOrder;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -112,7 +113,7 @@ class Customer extends Authenticatable
         //         // ->leftJoin('categories', 'categories.id', '=', 'trainings.category_id')
         //         ->where(['customer_code' => Auth::guard('customer')->user()->code])->get();
 
-        $data = RequestOrder::with('customers', 'sizes')
+        $data = ServiceOrder::with('customers')
                             ->where($where_)->get();
         return $data;
     }

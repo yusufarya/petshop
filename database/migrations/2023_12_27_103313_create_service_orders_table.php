@@ -15,12 +15,13 @@ return new class extends Migration
             $table->char('code', 20)->primary();
             $table->char('customer_code');
             $table->foreign('customer_code')->on('customers')->references('code');
-            $table->unsignedBigInteger('service_id');
-            $table->foreign('service_id')->on('services')->references('id');
+            $table->integer('category_id');
+            $table->enum('custody', ['Y', 'N'])->default('Y'); // Penitipan
+            $table->enum('pick_up', ['Y', 'N'])->default('Y'); // ANTAR JEMPUT
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->string('description', 200)->nullable();
-            $table->integer('grooming_id')->default(0);
+            $table->string('grooming_code', 100)->nullable();
             $table->double('price')->default(0);
             $table->double('charge')->default(0);
             $table->double('nett')->default(0);

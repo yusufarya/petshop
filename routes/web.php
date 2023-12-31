@@ -27,6 +27,8 @@ use App\Http\Controllers\FE\ProductFEController;
 use App\Http\Controllers\SalesTransactionReport;
 use App\Http\Controllers\PaymentMethodController;
 use App\Http\Controllers\PurchaseOrderController;
+use App\Http\Controllers\ServiceOrdersController;
+use App\Http\Controllers\ServiceTransactionReport;
 use App\Http\Controllers\FE\ShoppingCartController;
 use App\Http\Controllers\PurchaseTransactionReport;
 use App\Http\Controllers\TrainingContentController;
@@ -121,10 +123,33 @@ Route::middleware('admin')->group(function () {
     Route::get('/sales-order', [SalesOrderController::class, 'salesOrder']);
     Route::post('/update-status-delivery', [SalesOrderController::class, 'updateStatusDelivery']);
     
-    Route::get('/settings', [SettingsController::class, 'index']);
-    Route::post('/settings', [SettingsController::class, 'update']);
-    Route::get('/set-period', [SettingsController::class, 'setPeriod']);
-    Route::post('/set-period', [SettingsController::class, 'savePeriodActive']);
+    Route::get('/service-order', [ServiceOrdersController::class, 'index']);
+    Route::get('/service-order/{code}/detail', [ServiceOrdersController::class, 'detailRequest']);
+    Route::post('/update-price-req-order/{code}', [ServiceOrdersController::class, 'updatePriceRequest']);
+    Route::post('/service-orders/{code}', [ServiceOrdersController::class, 'accPaymentRequest']);
+    Route::post('/update-req-status-delivery', [ServiceOrdersController::class, 'updateStatusDelivery']);
+    
+    Route::get('/sales-report', [SalesTransactionReport::class, 'index']); // VIEW REPORT PURCASE TRANSACTION //
+    Route::get('/sales-rpt', [SalesTransactionReport::class, 'salesReport']); // SROTE REQUEST TO SESSION //
+    Route::get('/open-sales-rpt', [SalesTransactionReport::class, 'openSalesReport']); // OPEN REPORT PURCASE TRANSACTION //
+    
+    Route::get('/service-report', [ServiceTransactionReport::class, 'index']); // VIEW REPORT PURCASE TRANSACTION //
+    Route::get('/service-rpt', [ServiceTransactionReport::class, 'serviceReport']); // SROTE REQUEST TO SESSION //
+    Route::get('/open-service-rpt', [ServiceTransactionReport::class, 'openServiceReport']); // OPEN REPORT PURCASE TRANSACTION //
+
+    // =============== MODULE PENGIRIMAN ================== //
+    Route::resource('/delivery-types', DeliveryController::class)->only("index", "store", "update", "destroy");
+    Route::get('/delivery', [DeliveryTransactionController::class, 'index']);
+    Route::post('/update-status-delivery-d', [DeliveryTransactionController::class, 'updateStatusDelivery']);
+
+    // =============== MODULE KEUANGAN =============== //
+    // PAYMENT METHOD //
+    Route::resource('/payment-method', PaymentMethodController::class)->only("index", "store", "update", "destroy");
+    
+    // Route::get('/settings', [SettingsController::class, 'index']);
+    // Route::post('/settings', [SettingsController::class, 'update']);
+    // Route::get('/set-period', [SettingsController::class, 'setPeriod']);
+    // Route::post('/set-period', [SettingsController::class, 'savePeriodActive']);
     
     Route::post('/logout-admin', [AuthAdmin::class, 'logout']);
 });
@@ -143,9 +168,9 @@ Route::get('/detail-services/{id}', [ServiceController::class, 'detail']);
 
 Route::middleware('customer')->group(function () {
     
-    Route::get('/custom-request', [RequestOrderController::class, 'index']);
-    Route::post('/send-custom-request', [RequestOrderController::class, 'store']);
-    Route::get('/my-req-orders', [RequestOrderController::class, 'myRequestOrders']);
+    Route::get('/custom-request', [ServiceController::class, 'index']);
+    Route::post('/send-custom-request', [ServiceController::class, 'store']);
+    Route::get('/my-req-orders', [ServiceController::class, 'myServiceOrders']);
 
     Route::get('/my-orders', [CustomerController::class, 'myOrders']);
     Route::post('/acc-order', [CustomerController::class, 'accOrder']);
@@ -177,25 +202,11 @@ Route::middleware('customer')->group(function () {
     
     // PAYMENT REQUEST ORDER //
     Route::get('/payment-service/{code}', [PaymentServiceController::class, 'index']);
-    // Route::get('/payment-req/{code}/{page}', [PaymentServiceController::class, 'index']);
-    Route::post('/prosesPayOrder-req', [PaymentServiceController::class, 'prosesPayOrder']);
-    Route::get('/pay-order-req/{code}', [PaymentServiceController::class, 'payOrder']);
+    Route::post('/prosesPayOrder-service', [PaymentServiceController::class, 'prosesPayOrder']);
+    Route::get('/pay-order-service/{code}', [PaymentServiceController::class, 'payOrder']);
     // Route::post('/updatePaymentMethod', [PaymentServiceController::class, 'updatePaymentMethod']);
-    Route::post('/uploadImgPayment-req', [PaymentServiceController::class, 'uploadImgPayment']);
-    Route::delete('/cancel-order-req', [PaymentServiceController::class, 'cancelOrders']);
-
-    Route::get('/sales-report', [SalesTransactionReport::class, 'index']); // VIEW REPORT PURCASE TRANSACTION //
-    Route::get('/sales-rpt', [SalesTransactionReport::class, 'salesReport']); // SROTE REQUEST TO SESSION //
-    Route::get('/open-sales-rpt', [SalesTransactionReport::class, 'openSalesReport']); // OPEN REPORT PURCASE TRANSACTION //
-
-    // =============== MODULE PENGIRIMAN ================== //
-    Route::resource('/delivery-types', DeliveryController::class)->only("index", "store", "update", "destroy");
-    Route::get('/delivery', [DeliveryTransactionController::class, 'index']);
-    Route::post('/update-status-delivery-d', [DeliveryTransactionController::class, 'updateStatusDelivery']);
-
-    // =============== MODULE KEUANGAN =============== //
-    // PAYMENT METHOD //
-    Route::resource('/payment-method', PaymentMethodController::class)->only("index", "store", "update", "destroy");
+    Route::post('/uploadImgPayment-service', [PaymentServiceController::class, 'uploadImgPayment']);
+    Route::delete('/cancel-order-service', [PaymentServiceController::class, 'cancelOrders']);
     
     Route::post('/logout', [CustomerController::class, 'logout']);
 });
