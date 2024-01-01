@@ -57,79 +57,23 @@
 
 </section> 
 
-<div class="modal fade" id="modal-add" tabindex="-1">
+<div class="modal fade" id="modal-detail" tabindex="-1">
   <div class="modal-dialog modal-md">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title ml-2 font-weight-bold">Title</h5>
+        <h5 class="modal-title ml-2 font-weight-bold">Gambar Produk</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form action="/units" method="POST">
-        @csrf
-        <div class="modal-body p-3">
-          <div class="row" id="content-add">
-            
-          </div>
-        </div> 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          <button type="submit" class="btn btn-primary">Simpan</button>
+      <div class="modal-body p-3">
+        <div class="row" id="content">
+          <img src="" alt="img" id="img_produk" style="width: 300px; height: auto; padding: 5px;">
         </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="modal-edit" tabindex="-1">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title ml-2 font-weight-bold">Title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+      </div> 
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
       </div>
-      <form method="POST">
-        @csrf
-        @method('PUT')
-        <div class="modal-body p-3">
-          <div class="row" id="content-edit">
-            
-          </div>
-        </div> 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-          <button type="submit" class="btn btn-primary">Simpan</button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="modal-delete" tabindex="-1">
-  <div class="modal-dialog modal-md">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title ml-2 font-weight-bold">Title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <form method="POST">
-        @csrf
-        @method('DELETE')
-        <div class="modal-body p-3">
-          <div class="row" id="content-delete">
-            
-          </div>
-        </div> 
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-          <button type="submit" class="btn btn-primary">Ya</button>
-        </div>
-      </form>
     </div>
   </div>
 </div>
