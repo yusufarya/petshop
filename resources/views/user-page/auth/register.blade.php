@@ -25,7 +25,7 @@
                     <input type="hidden" id="invalid" value="<?= session()->has('failed') ?>">
                     <form class="mt-5" action="/register" method="POST">
                         @csrf
-                        <h1 class="h3 mb-3 fw-bold my-color-primary">Buat Akun Untuk Menjadi Peserta</h1>
+                        <h1 class="h3 mb-3 fw-bold my-color-primary">Buat Akun Untuk Menjadi Pelanggan</h1>
             
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12">

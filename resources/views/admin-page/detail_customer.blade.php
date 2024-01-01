@@ -24,7 +24,7 @@ $date_of_birth = $detailCustomer->date_of_birth ? date('d, M Y', strtotime($deta
             <div class="col-lg-7">
                 <table class="table table-bordered table-sm">
                     <tr>
-                        <th>Nomor Peserta</th>
+                        <th>Nomor Pelanggan</th>
                         <td>{{ $detailCustomer->code }} </td>
                     </tr>
                     <tr>
