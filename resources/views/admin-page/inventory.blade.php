@@ -46,7 +46,7 @@
                       <td>{{ $row->products->sizes->initial }}</td> 
                       <td style=" text-align: right;">{{ number_format($row->stock,2) }}</td> 
                       <td style=" text-align: center;">
-                        <a href="/detail-inventory/{{$row->id}}" class="text-info"><i class="fas fa-info-circle"></i> Detail</a>
+                        <a href="#" onclick="popupImg(`{{$row->products->image}}`)" class="text-info"><i class="fas fa-info-circle"></i> Lihat gambar</a>
                       </td>
                   </tr>
                 @endforeach
@@ -135,3 +135,11 @@
 </div>
 
 @endsection
+
+<script>
+  function popupImg(img) {
+    $('#modal-detail').modal('show')
+
+    $('#img_produk').attr('src', '/storage/'+img)
+  }
+</script>
