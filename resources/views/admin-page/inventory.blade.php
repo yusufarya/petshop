@@ -22,7 +22,7 @@
     <div class="container-fluid">
         <div class="row mx-2">
           <div class="row justify-content-end mb-2 w-100">
-            <a href="/export-inventory" class="btn float-right btn-success "><i class="fas fa-file-excel"></i> &nbsp; export</a>
+            {{-- <a href="/export-inventory" class="btn float-right btn-success "><i class="fas fa-file-excel"></i> &nbsp; export</a> --}}
           </div>
           <table class="table table-bordered table-sm">
               <thead>
