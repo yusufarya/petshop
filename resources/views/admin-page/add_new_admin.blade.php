@@ -40,7 +40,7 @@
                             </div>
                             
                             <div class="col-lg-12 col-md-12 col-sm-12 mt-2">
-                                <label for="fullname">Nema Lengkap</label>
+                                <label for="fullname">Nama Lengkap</label>
                                 <input type="text" autocomplete="off" class="form-control @error('fullname')is-invalid @enderror" name="fullname" id="fullname" maxlength="50" placeholder="Nama lengkap" onkeyup="generateUsername()" value="{{ old('fullname') }}">
                                 @error('fullname')
                                     <small class="invalid-feedback">

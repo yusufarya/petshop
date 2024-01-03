@@ -67,7 +67,7 @@
                                 </div>
                                 
                                 <div class="col-lg-12 col-md-12 col-sm-12 mt-2">
-                                    <label for="name">Nema Produk</label>
+                                    <label for="name">Nama Produk</label>
                                     <input type="text" autocomplete="off" class="form-control @error('name')is-invalid @enderror" name="name" id="name" maxlength="50" placeholder="Nama Produk" value="{{ old('name') }}">
                                     @error('name')
                                         <small class="invalid-feedback">
