@@ -110,12 +110,12 @@
                                 <p>Daftar Produk</p>
                             </a> 
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="/services" class="nav-link {{ Request::segment(1) === 'services' ? 'submenu-active' : '' }}">
                                 » &nbsp;
                                 <p>Daftar Layanan</p>
                             </a> 
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="/update-stock" class="nav-link {{ Request::segment(1) === 'update-stock' ? 'submenu-active' : '' }}">
                                 » &nbsp;
