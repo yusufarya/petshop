@@ -58,8 +58,9 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <strong>Copyright &copy; SI PETSHOP - {{ date('Y') }} <a href="https://yusufarya.my.id" target="_blank" class="text-decoration-none">29tech.id</a>.</strong>
-            All rights reserved.
+            <strong>Copyright &copy; SI PetShop - {{ date('Y') }} 
+                {{-- <a href="https://yusufarya.my.id" target="_blank" class="text-decoration-none">29tech.id</a>.</strong> --}}
+            All Rights Reserved.
             <div class="float-right d-none d-sm-inline-block">
             <b>Version</b> 1.0.0
             </div>
