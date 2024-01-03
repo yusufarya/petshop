@@ -130,8 +130,8 @@
           </div>
         </div> 
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Tidak</button>
-          <button type="submit" class="btn btn-primary">Ya</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal" id="n">Tidak</button>
+          <button type="submit" class="btn btn-primary" id="y">Ya</button>
         </div>
       </form>
     </div>

@@ -150,5 +150,26 @@ class GeneralController extends Controller {
         }
         
     }
+
+    
+    function checkTransactionProduct(Request $request) {
+        $isValid = true;
+        $result = PurchaseOrderDetail::where(['product_id' => $request->product_id])->count();
+        if($result) {
+            $typeTrans = "Pembelian";
+            $isValid = false;
+        }
+        $result = SalesOrderDetail::where(['product_id' => $request->product_id])->count();
+        // dd($result);
+        if($result) {
+            $typeTrans = "Penjualan";
+            $isValid = false;
+        }
+        if($isValid === true) {
+            return response()->json(['status' => 'success', 'message' => "Produk berhasil di hapus"]);
+        } else {
+            return response()->json(['status' => 'failed', 'message' => "Produk tidak dapat dihapus, karna telah digunakan pada transaksi ". $typeTrans]);
+        }
+    }
     
 }

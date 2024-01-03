@@ -66,6 +66,8 @@ Route::middleware('guest')->group(function () {
 
 
 Route::middleware('admin')->group(function () {
+    Route::get('/checkTransactionProduct', [GeneralController::class, 'checkTransactionProduct']);
+    
     Route::get('/profile', [AdminController::class, 'index']);
     Route::get('/dashboard', [Dashboard::class, 'index']);
     
