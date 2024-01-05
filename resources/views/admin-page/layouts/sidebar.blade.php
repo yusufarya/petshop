@@ -52,7 +52,7 @@
                     </a> 
                 </li> 
                 
-                <li class="nav-item {{ Request::segment(1) === 'data-admin' || Request::segment(1) === 'data-customer' || Request::segment(1) === 'detail-customer' ? 'menu-is-opening menu-open' : '' }}">
+                <li class="nav-item {{ Request::segment(1) === 'data-admin' || Request::segment(1) === 'data-customer' || Request::segment(1) === 'detail-customer' || Request::segment(1) === 'form-edit-admin'  ? 'menu-is-opening menu-open' : '' }}">
                     <a href="#" class="nav-link ">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
@@ -62,7 +62,7 @@
                     </a>
                     <ul class="nav nav-treeview ml-3">
                         <li class="nav-item">
-                            <a href="/data-admin" class="nav-link {{ Request::segment(1) === 'data-admin' ? 'submenu-active' : '' }}">
+                            <a href="/data-admin" class="nav-link {{ Request::segment(1) === 'data-admin' || Request::segment(1) === 'form-edit-admin' ? 'submenu-active' : '' }}">
                                 » &nbsp;
                                 <p>Data Admin</p>
                             </a> 

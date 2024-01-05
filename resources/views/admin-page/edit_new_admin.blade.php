@@ -111,7 +111,7 @@
     
                             <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                                 <label for="place_of_birth">Tempat lahir</label>
-                                <input type="text" class="form-control @error('place_of_birth')is-invalid @enderror" name="place_of_birth" id="place_of_birth" value="{{ $data_admin->place_of_birth, old('place_of_birth') }}">
+                                <input type="text" class="form-control @error('place_of_birth')is-invalid @enderror" name="place_of_birth" id="place_of_birth" value="{{ $data_admin->place_of_birth ? $data_admin->place_of_birth : old('place_of_birth') }}">
                                 @error('place_of_birth')
                                 <small class="invalid-feedback">
                                     Tempat Lahir {{ $message }}
@@ -121,7 +121,7 @@
     
                             <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
                                 <label for="date_of_birth">Tanggal Lahir</label>
-                                <input type="date" class="form-control @error('date_of_birth')is-invalid @enderror" name="date_of_birth" id="date_of_birth" value="{{ $data_admin->date_of_birth, old('date_of_birth') }}">
+                                <input type="date" class="form-control @error('date_of_birth')is-invalid @enderror" name="date_of_birth" id="date_of_birth" value="{{ $data_admin->date_of_birth ? $data_admin->date_of_birth : old('date_of_birth') }}">
                                 @error('date_of_birth')
                                 <small class="invalid-feedback">
                                     Tanggal Lahir {{ $message }}
@@ -131,7 +131,7 @@
     
                             <div class="col-lg-12 col-md-12 col-sm-12 mt-2">
                                 <label for="address">Alamat Lengkap</label>
-                                <textarea name="address" id="address" class="form-control" cols="30" rows="5"></textarea>
+                                <textarea name="address" id="address" class="form-control" cols="30" rows="5">{{ $data_admin->address ? $data_admin->address : old('address') }}</textarea>
                             </div>
     
                         </div>
