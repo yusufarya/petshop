@@ -17,7 +17,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="card mx-3 elevation-1 p-3">
-            <form action="/edit-new-admin" method="POST" enctype="multipart/form-data">
+            <form action="/edit-new-admin/{{$page_}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row my-4 mx-3">
                     <div class="col-lg-6 col-md-6 col-sm-12" >
@@ -155,7 +155,7 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 mt-4">
-                                <label for="password">Password</label>
+                                <label for="password">Password</label> <small class="text-danger"> ( Kosongkan jika tidak ingin mengubah password )</small>
                                 <input type="password" class="form-control @error('password')is-invalid @enderror" name="password" id="password">
                                 @error('password')
                                 <small class="invalid-feedback">

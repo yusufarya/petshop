@@ -75,13 +75,19 @@ class AdminController extends Controller
             'phone'       => 'required|max:15',
             'email'         => 'required|max:100|email|unique:admins',
             'password'      => 'required|min:6|max:255',
+            'image'         => 'file|image|max:1024',
         ]);
         
+        
+        if($request->file('image')) {
+            $validatedData['image'] = $request->file('image')->store('user-images');
+        }
+
         $validatedData['code'] = getLasCodeAdmin();
         $validatedData['created_at'] = date('Y-m-d H:i:s');
         $validatedData['created_by'] = Auth::guard('admin')->user()->username;
         $validatedData['password'] = Hash::make($validatedData['password']);
-        $validatedData['level_id'] = 1;
+        // $validatedData['level_id'] = 1;
         // dd($validatedData);
         $result = Admin::create($validatedData);
         if($result) {
@@ -94,7 +100,8 @@ class AdminController extends Controller
         
     }
 
-    function editFormAdmin($code) {
+    function editFormAdmin($code, $page = '') {
+        
         $filename = 'edit_new_admin';
         $filename_script = getContentScript(true, $filename);
 
@@ -106,11 +113,13 @@ class AdminController extends Controller
             'title' => 'Edit Data Admin',
             'auth_user' => $data,
             'data_admin' => $data_admin,
-            'level' => $admin_level
+            'level' => $admin_level,
+            'page_' => $page ? $page : ''
         ]);
     }
 
-    function updateAdmin(Request $request) {
+    function updateAdmin(Request $request, $page = '') {
+        
         $validatedData = $request->validate([
             'fullname'      => 'required|max:50',
             'username'      => 'required|max:30',
@@ -119,7 +128,7 @@ class AdminController extends Controller
             'level_id'      => 'required',
             'place_of_birth'=> 'required|max:40',
             'date_of_birth' => 'required',
-            'address'        => 'required',
+            'address'       => 'required',
             'image'         => 'file|image|max:1024',
         ]);
         
@@ -145,7 +154,11 @@ class AdminController extends Controller
             // dd($result);
             if($result) {
                 $request->session()->flash('success', 'Akun berhasil dibuat');
-                return redirect('/data-admin');
+                if($page == "profile") {
+                    return redirect('/profile');
+                } else {
+                    return redirect('/data-admin');
+                }
             } else {
                 $request->session()->flash('failed', 'Proses gagal, Hubungi administrator');
                 return redirect('/form-edit-admin/'.$validatedData['code']);
@@ -155,6 +168,22 @@ class AdminController extends Controller
             return redirect('/form-edit-admin/'.$validatedData['code']);
         }
 
+    }
+    
+    function deleteAdmin(Request $request, string $code) {
+
+        if(auth()->guard('admin')->user()->code == $code) {
+            $request->session()->flash('failed', 'Proses gagal, Anda tidak dapat menghapus akun anda sendiri');
+            return redirect('/data-admin');
+        }
+        $data = Admin::where(['code' => $code]);
+        $result = $data->delete();
+        if($result) {
+            $request->session()->flash('success', 'Transaksi berhasil diubah');
+        } else {
+            $request->session()->flash('failed', 'Proses gagal, Hubungi administrator');
+        }
+        return redirect('/data-admin');
     }
 
     function dataCustomer() {

@@ -26,21 +26,32 @@
                         @if(!$auth_user->image)
                             <img src="{{ asset('img/userDefault.png') }}" class="img-circle elevation-0" style="height: 150px;" alt="User Image">
                         @else
-                            <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-0" alt="User Image">
+                          <img src="{{ asset('/storage').'/'.$auth_user->image }}" class="img-circle elevation-0" style="height: 150px;" alt="User Image">
                         @endif
                     </div>
                     <div class="col-lg-8">
                         <h4 class="font-weight-bold">{{ $auth_user->code }}</h4>
                         <h4>{{ $auth_user->fullname }}</h4>
-                        
-                        {{ $auth_user->address }}
+                        <p>Anda Masuk sebagai &nbsp; <span class="badge bg-info">{{ $auth_user->admin_level->name }}</span></p>
+                        <small><b>Alamat Toko :</b></small><br>
+                        {{-- {{ $auth_user->address }} --}}
+                        Jln. Bringin Raya Blok 28/ no 6 RT.006 / RW.002 Karawaci Baru Kecamatan Karawaci Kota Tangerang Banten 15116 Indonesia
+                        <hr>
                     </div>
                 </div>
             </div>
         </div>
         <div class="col">
-            <div class="p-3 elevation-2 rounded-2">
+            <div class="p-3 elevation-2 rounded-2 ">
                 <table class="table mt-2">
+                    <tr>
+                        <td>Tempat Lahir</td>
+                        <td> {{ $auth_user->place_of_birth }} </td>
+                    </tr>
+                    <tr>
+                        <td>Tanggal Lahir</td>
+                        <td> {{ $auth_user->date_of_birth }} </td>
+                    </tr>
                     <tr>
                         <td>Telp / Hp</td>
                         <td> {{ $auth_user->phone }} </td>
@@ -54,21 +65,21 @@
                         <td> {{ $auth_user->is_active == "Y" ? "Aktif" : "Tidak Aktif" }} </td>
                     </tr>
                 </table>
+                
+                <div class="row justify-content-start p-2">
+                  <a href="/form-edit-admin/{{$auth_user->code}}/profile" class="btn my-bg-secondary text-white mr-2">
+                    Update Profile 
+                  </a>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn my-bg-primary text-white" data-toggle="modal" data-target="#exampleModal">
+                    Logout <i class="fa fa-sign-out-alt"></i> 
+                  </button>
+                </div>
             </div>
         </div>
         
       </div>
       
-      <div class="row justify-content-end p-2">
-        <!-- Button trigger modal -->
-        <button type="button" class="btn my-bg-secondary text-white mr-2" data-toggle="modal" data-target="#exampleModal">
-          Update Profile 
-        </button>
-        
-        <button type="button" class="btn my-bg-primary text-white" data-toggle="modal" data-target="#exampleModal">
-          Logout <i class="fa fa-sign-out-alt"></i> 
-        </button>
-      </div>
 
     </div>
 </section>

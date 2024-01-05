@@ -20,7 +20,7 @@
                 @if(!$auth_user->image)
                     <img src="{{ asset('img/userDefault.png') }}" class="img-circle elevation-0" alt="User Image">
                 @else
-                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-0" alt="User Image">
+                    <img src="{{ asset('/storage').'/'.$auth_user->image }}" class="img-circle elevation-0" alt="User Image">
                 @endif
             </div>
             <div class="info">

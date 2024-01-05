@@ -76,7 +76,10 @@ Route::middleware('admin')->group(function () {
     Route::get('/form-add-admin', [AdminController::class, 'addFormAdmin']);
     Route::post('/add-new-admin', [AdminController::class, 'storeAdmin']);
     Route::get('/form-edit-admin/{number}', [AdminController::class, 'editFormAdmin']);
+    Route::get('/form-edit-admin/{number}/{page}', [AdminController::class, 'editFormAdmin']);
     Route::post('/edit-new-admin', [AdminController::class, 'updateAdmin']);
+    Route::post('/edit-new-admin/{page}', [AdminController::class, 'updateAdmin']);
+    Route::delete('/delete-admin/{number}', [AdminController::class, 'deleteAdmin']);
 
     Route::get('/data-customer', [AdminController::class, 'dataCustomer']);
     Route::get('/detail-customer/{code}', [AdminController::class, 'detailCustomer']); 
