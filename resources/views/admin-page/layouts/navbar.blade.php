@@ -36,7 +36,7 @@
         </li> --}}
 
         <!-- Notifications Dropdown Menu -->
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown" hidden>
             <a class="nav-link" data-toggle="dropdown" href="#">
                 <i class="far fa-bell text-white"></i>
                 <span class="badge badge-warning navbar-badge">15</span>
