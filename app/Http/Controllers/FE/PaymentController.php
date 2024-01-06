@@ -8,6 +8,7 @@ use App\Models\OrderPayment;
 use Illuminate\Http\Request;
 use App\Models\PaymentMethod;
 use App\Models\SalesOrderDetail;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,11 +26,25 @@ class PaymentController extends Controller
                 ->find($code_tr);
         $resultDetail = SalesOrderDetail::with('sales_order', 'products.categories', 'products.sizes', 'products.brands')
                                           ->where('sales_order_code', $code_tr)->get();
-        // dd($resultDetail);
+        
         $checkOrderPayment = OrderPayment::where(['order_code' => $code_tr])->first();
         
         if($checkOrderPayment) {
-            return redirect('/pay-order/'.$code_tr);
+            $where = ['sales_order_code' => $code_tr];
+        
+            $qty = SalesOrderDetail::where($where)->sum('qty');
+            $total_price = SalesOrderDetail::where($where)
+                                            ->sum(DB::raw('price * qty'));
+
+            $dataHeader = [
+                'qty' => $qty,
+                'total_price' => $total_price,
+            ];
+            // dd($dataHeader);
+            $update = SalesOrder::where(['code' => $code_tr])->update($dataHeader);
+            if($total_price > 0) {
+                return redirect('/pay-order/'.$code_tr);
+            }
         }
 
         return view('user-page.'.$filename, [
@@ -69,7 +84,6 @@ class PaymentController extends Controller
                 'charge' => $request->charge
             ];
         }
-        // dd($orderDT);
 
         $code_pelanggan = Auth::guard('customer')->user()->code;
 
@@ -109,7 +123,7 @@ class PaymentController extends Controller
             $filename = 'pay_order';
             $filename_script = getContentScript(false, $filename);
     
-            $user = Customer::find(Auth::guard('customer')->user()->code)->first();
+            $user = Auth::guard('customer')->user();
             
             $payment_method = PaymentMethod::get();  
             
@@ -119,7 +133,31 @@ class PaymentController extends Controller
             if(!$result) {
                 return redirect('/');    
             }
-    
+            
+            if(ucwords(trim($user->city)) == 'Jakarta') {
+                $deliveryId = 1;
+            } else {
+                $deliveryId = 2;
+            }
+            $charge = getCharge($deliveryId)->charge;
+            
+            $where = ['sales_order_code' => $sales_order_code];
+        
+            $qty = SalesOrderDetail::where($where)->sum('qty');
+            $total_price = SalesOrderDetail::where($where)
+                                            ->sum(DB::raw('price * qty'));
+            $nett = SalesOrderDetail::where($where)
+                                            ->sum(DB::raw('(price * qty)+charge'));
+            
+            $dataHeader = [
+                'qty' => $qty,
+                'charge' => $charge,
+                'total_price' => $total_price,
+                'nett' => $nett,
+            ];
+            // dd($dataHeader);
+            $update = SalesOrder::where(['code' => $sales_order_code])->update($dataHeader);
+
             $checkOrderPayment = OrderPayment::where(['order_code' => $sales_order_code])->first();
     
             // dd($result);
@@ -165,4 +203,5 @@ class PaymentController extends Controller
         $sales = SalesOrder::where(['code' => $request->code])->delete();
         return true;
     }
+
 }

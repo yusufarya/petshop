@@ -87,6 +87,7 @@ class AdminController extends Controller
         $validatedData['created_at'] = date('Y-m-d H:i:s');
         $validatedData['created_by'] = Auth::guard('admin')->user()->username;
         $validatedData['password'] = Hash::make($validatedData['password']);
+        $validatedData['is_active'] = $request['is_active'] ? "Y" : "N";
         // $validatedData['level_id'] = 1;
         // dd($validatedData);
         $result = Admin::create($validatedData);
@@ -148,6 +149,7 @@ class AdminController extends Controller
             $validatedData['password'] = Hash::make($request['password']);
         }
         $validatedData['level_id'] = $validatedData['level_id'];
+        $validatedData['is_active'] = $request['is_active'] ? "Y" : "N";
         
         if($username_exist === false) {
             $result = Admin::where(['code' => $validatedData['code']])->update($validatedData);

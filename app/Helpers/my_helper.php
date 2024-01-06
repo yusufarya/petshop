@@ -1,7 +1,6 @@
 <?php
 
 use App\Models\Admin;
-use App\Models\Training;
 use App\Models\SalesOrder;
 use App\Models\DeliveryType;
 use App\Models\OrderPayment;
