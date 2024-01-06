@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inventory;
 use App\Models\SalesOrder;
 use App\Models\OrderPayment;
 use Illuminate\Http\Request;
@@ -33,6 +34,21 @@ class SalesOrderController extends Controller
         if($request->status) {
             SalesOrder::where('code', $order_code)->update(['status' => (string)$request->status]);
             OrderPayment::where('order_code', $order_code)->update(['status' => "Approve"]);
+            
+            $getDetailOrder = SalesOrderDetail::where('sales_order_code', $order_code)->get();
+            // dd($getDetailOrder);
+            foreach ($getDetailOrder as $item) {
+                $product_id = $item->product_id;
+                $qty_dt = $item->qty;
+
+                $checkInventory = Inventory::where(['product_id' => $product_id])->first();
+                // dd($checkInventory);
+                if ($checkInventory) {
+                    $qtyInStock = $checkInventory->stock; 
+                    $stockFix = $qtyInStock - $qty_dt;  
+                    Inventory::where(['product_id' => $product_id])->update(['product_id' => $product_id, 'stock' => $stockFix ]);
+                }
+            } 
         }
 
         $user = Auth::guard('admin')->user();
