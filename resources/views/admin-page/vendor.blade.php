@@ -23,8 +23,9 @@
           <table class="table table-bordered table-sm">
               <thead>
                   <tr class="my-bg-primary text-white">
-                      <th style="width: 9%">Kode</th>
+                      <th style="width: 6%">Kode</th>
                       <th>Nama Vendor</th>
+                      <th style="width: 15%">No. Telp</th>
                       <th>Alamat</th>
                       <th style="width: 10%; text-align: center;">Aksi</th>
                   </tr>
@@ -34,9 +35,10 @@
                   <tr>
                       <td> 0{{ $row->code }}</td>
                       <td>{{ $row->name }}</td>
+                      <td>{{ $row->phone }}</td>
                       <td>{{ $row->address }}</td>
                       <td style=" text-align: center;">
-                        <a href="#" onclick="edit_vendor(`{{$row->code}}`, `{{$row->name}}`)" class="text-warning"><i class="fas fa-edit"></i></a>
+                        <a href="#" onclick="edit_vendor(`{{$row->code}}`, `{{$row->name}}`, `{{$row->phone}}`, `{{$row->address}}`)" class="text-warning"><i class="fas fa-edit"></i></a>
                         &nbsp;
                         <a href="#" onclick="delete_vendor(`{{$row->code}}`, `{{$row->name}}`)" class="text-danger"><i class="fas fa-trash-alt"></i></i></a> 
                       </td>

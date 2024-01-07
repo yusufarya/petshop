@@ -10,5 +10,6 @@ class Vendor extends Model
     use HasFactory;
 
     public $guarded = ['code'];
+    public $primaryKey = 'code';
     public $timestamps = false;
 }
