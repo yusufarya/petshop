@@ -14,7 +14,7 @@ function add_vendor() {
                         <label for="phone">No. Telp<label>
                     </div>
                     <div class="col-md-8 mb-2">
-                        <input type="text" autocomplete="off" name="phone" id="phone" onkeyup="onlyNumbers(this)" class="form-control" style="margin-left: 0px;">
+                        <input type="text" autocomplete="off" name="phone" id="phone" onkeyup="onlyNumbers(this)" maxlength="15" class="form-control" style="margin-left: 0px;">
                     </div>
                     <div class="col-md-4 mb-2">
                         <label for="address">Alamat<label>
@@ -47,7 +47,7 @@ function edit_vendor(id, name, phone, address) {
                         <label for="phone">No. Telp<label>
                     </div>
                     <div class="col-md-8 mb-2">
-                        <input type="text" autocomplete="off" name="phone" id="phone" onkeyup="onlyNumbers(this)" class="form-control" style="margin-left: 0px;" value="` +
+                        <input type="text" autocomplete="off" name="phone" id="phone" onkeyup="onlyNumbers(this)" maxlength="15" class="form-control" style="margin-left: 0px;" value="` +
         phone +
         `">
                     </div>
