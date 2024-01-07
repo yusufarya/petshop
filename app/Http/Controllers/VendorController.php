@@ -71,14 +71,14 @@ class VendorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, int $code)
     {
         $dataUpdate = [
             'name'=>ucwords($request['name']), 
             'address' => ucwords($request['address']),
             'phone'=> $request['phone'],
         ];
-        $result = Vendor::find($id)->update($dataUpdate);
+        $result = Vendor::find($code)->update($dataUpdate);
         if($result) {
             $request->session()->flash('success', 'Vendor berhasil diubah');
         } else {
