@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Customer;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -28,5 +29,15 @@ class SalesOrder extends Model
     public function salesOrderDetails(): BelongsTo
     {
         return $this->belongsTo(SalesOrderDetail::class, 'code', 'sales_order_code');
+    }
+
+    /**
+     * Get all of the comments for the SalesOrder
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function salesOrderMany(): HasMany
+    {
+        return $this->hasMany(SalesOrderDetail::class, 'sales_order_code', 'code');
     }
 }

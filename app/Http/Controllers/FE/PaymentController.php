@@ -42,9 +42,8 @@ class PaymentController extends Controller
             ];
             // dd($dataHeader);
             $update = SalesOrder::where(['code' => $code_tr])->update($dataHeader);
-            if($total_price > 0) {
-                return redirect('/pay-order/'.$code_tr);
-            }
+            return redirect('/pay-order/'.$code_tr);
+            
         }
 
         return view('user-page.'.$filename, [
@@ -201,6 +200,8 @@ class PaymentController extends Controller
         // dd($request->code);
         $salesDetail = SalesOrderDetail::where(['sales_order_code' => $request->code])->delete();
         $sales = SalesOrder::where(['code' => $request->code])->delete();
+        $salesDetail = OrderPayment::where(['order_code' => $request->code])->delete();
+        
         return true;
     }
 

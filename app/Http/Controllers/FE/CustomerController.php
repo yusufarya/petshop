@@ -197,6 +197,19 @@ class CustomerController extends Controller
         ]);
     }
 
+    function myOrderDetail(string $code) {
+        $data = SalesOrder::with('customers', 'salesOrderMany.products.categories', 'salesOrderMany.products.brands', 'salesOrderMany.products.sizes')
+                            ->where('code', $code)->get();
+        // dd($data);
+        $filename = 'my_order_detail';
+        $filename_script = getContentScript(false, $filename);
+        return view('user-page.'.$filename, [
+            'script' => $filename_script,
+            'title' => 'Detail Pesanan Saya ',
+            'my_order_detail' => $data, 
+        ]);
+    }
+
     function accOrder(Request $request) {
         $code = substr($request->code, 0,2);
         // dd($request);
