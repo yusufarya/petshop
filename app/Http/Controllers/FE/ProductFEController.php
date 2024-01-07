@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 
 class ProductFEController extends Controller
 {
-    function index() {
+    function index($id = '') {
         $filename = 'products';
         $filename_script = getContentScript(false, $filename);
         // dd($filename_script);
@@ -19,6 +19,7 @@ class ProductFEController extends Controller
             'script' => $filename_script,
             'title' => 'Home',
             'category' => $category,
+            'id_cat' => $id,
             'products' => $products,
         ]);
     }

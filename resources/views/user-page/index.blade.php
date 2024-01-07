@@ -37,7 +37,7 @@
     @foreach ($category as $item)
         
       <div class="category-panel">
-        <a href="/our-products" class="text-decoration-none text-dark-emphasis">
+        <a href="/our-products/{{$item->id}}" class="text-decoration-none text-dark-emphasis">
           <div class="box-category">
             <div class="text-center">
               <b class="text-center">{{ $item->name }} </b>

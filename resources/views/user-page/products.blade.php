@@ -47,6 +47,7 @@
         </button>
       </div>
     </section>
+    <input type="hidden" name="id_cat" id="id_cat" value="{{$id_cat}}">
     <section class="pt-1">
       <div class="justify-content-center">
         <button class="alert alert-light py-0 mx-1 btn-category-all" data-id="all" onclick="getCategory('all')">Semua Kategori</button>
