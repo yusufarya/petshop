@@ -97,6 +97,48 @@ class SalesOrderController extends Controller
         ]);
     }
 
+    function detailSalesOrder(Request $request, string $order_code) {
+
+        $filename = 'order_detail';
+        $filename_script = getContentScript(true, $filename);
+
+        if($request->status) {
+            SalesOrder::where('code', $order_code)->update(['status' => (string)$request->status]);
+            OrderPayment::where('order_code', $order_code)->update(['status' => "Approve"]);
+
+            $getDetailOrder = SalesOrderDetail::where('sales_order_code', $order_code)->get();
+            // dd($getDetailOrder);
+            foreach ($getDetailOrder as $item) {
+                $product_id = $item->product_id;
+                $qty_dt = $item->qty;
+
+                $checkInventory = Inventory::where(['product_id' => $product_id])->first();
+                // dd($checkInventory);
+                if ($checkInventory) {
+                    $qtyInStock = $checkInventory->stock; 
+                    $stockFix = $qtyInStock - $qty_dt;  
+                    Inventory::where(['product_id' => $product_id])->update(['product_id' => $product_id, 'stock' => $stockFix ]);
+                }
+            } 
+
+        }
+
+        $user = Auth::guard('admin')->user();
+        $resultDataHeader = SalesOrder::with('customers')->find($order_code);
+        $resultDataDetail = SalesOrderDetail::with('products.sizes')->where(['sales_order_code' => $order_code])->get();
+        
+        $getPaymentOrder = OrderPayment::with('payment_methods')->where(['order_code' => $order_code])->first();
+        // dd($getPaymentOrder);
+        return view('admin-page.'.$filename, [
+            'script' => $filename_script,
+            'title' => 'Detail Pesanan ',
+            'auth_user' => $user,
+            'dataHeader' => $resultDataHeader,
+            'dataDetail' => $resultDataDetail,
+            'orderPayment' => $getPaymentOrder,
+        ]);
+    }
+
     public function updateStatusDelivery(Request $request)
     {
         $data = ['delivery' => $request->delivery];

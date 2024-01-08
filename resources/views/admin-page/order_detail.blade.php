@@ -82,7 +82,7 @@
                 <div class="row justify-content-end mx-3">
                     <section class="col-lg-4">
                         <section style="float: right;">
-                            <a href="/orders" class="btn btn-outline-secondary mr-2"><i class="fas fa-backspace"></i> Kembali</a>
+                            <a href="/{{Request::segment(1)}}" class="btn btn-outline-secondary mr-2"><i class="fas fa-backspace"></i> Kembali</a>
                         </section>
                     </section>
                 </div>

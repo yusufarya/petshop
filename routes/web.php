@@ -128,6 +128,7 @@ Route::middleware('admin')->group(function () {
     Route::get('/product_order_details/{sequence}', [SalesOrderController::class, 'productOrderDetails']);
     Route::delete('/delete-order/{code}', [SalesOrderController::class, 'deleteData']);
     Route::get('/sales-order', [SalesOrderController::class, 'salesOrder']);
+    Route::get('/sales-order/{code}/detail', [SalesOrderController::class, 'detailSalesOrder']);
     Route::post('/update-status-delivery', [SalesOrderController::class, 'updateStatusDelivery']);
     
     Route::get('/service-order', [ServiceOrdersController::class, 'index']);
