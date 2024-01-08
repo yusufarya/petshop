@@ -107,7 +107,7 @@
             </div> --}}
           </div>
           <!-- /.card-header -->
-          <div class="card-body p-0">
+          <div class="card-body p-0 px-3">
             @foreach ($salesOrderData as $item)
               <ul class="products-list product-list-in-card pl-2 pr-2">
                 <li class="item">
