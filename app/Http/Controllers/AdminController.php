@@ -73,6 +73,7 @@ class AdminController extends Controller
             'place_of_birth'    => 'required|max:40',
             'date_of_birth'     => 'required',
             'phone'       => 'required|max:15',
+            'address'        => 'required',
             'email'         => 'required|max:100|email|unique:admins',
             'password'      => 'required|min:6|max:255',
             'image'         => 'file|image|max:1024',
