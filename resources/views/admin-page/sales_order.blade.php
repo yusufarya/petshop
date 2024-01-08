@@ -60,7 +60,7 @@
                 
                 ?>
                   <tr>
-                      <td><?= $row->code ?></td>
+                      <td><a href="/sales-order/{{$row->code}}/detail"><?= $row->code ?></a></td>
                       <td>{{ $row->customers->fullname }}</td>
                       <td>{{ date('d - m - Y', strtotime($row->date)) }}</td>
                       <td style=" text-align: right;">{{ number_format($row->qty,2) }}</td> 
