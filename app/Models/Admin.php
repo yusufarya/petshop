@@ -30,6 +30,8 @@ class Admin extends Authenticatable
         'level_id',
         'is_active',
         'email',
+        'address',
+        'image',
         'password',
         'created_at',
         'created_by',
