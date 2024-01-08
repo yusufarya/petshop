@@ -14,7 +14,7 @@ function add_m_unit() {
                         <label for="name" style="margin: ;">Nama Satuan<label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" autocomplete="off" name="name" id="name" class="form-control w-100" placeholder="Pieces">
+                        <input type="text" autocomplete="off" name="name" id="name" class="form-control w-100" placeholder="Pieces"  maxlength="30">
                     </div>
                 </div>`;
 
@@ -33,7 +33,7 @@ function edit_m_unit(id, initial, name) {
                         <label for="initial" style="margin: ;">initial<label>
                     </div>
                     <div class="col-md-7">
-                        <input type="text" autocomplete="off" name="initial" id="initial" maxlength="3" class="form-control w-100" value="` +
+                        <input type="text" autocomplete="off" name="initial" id="initial" maxlength="3" class="form-control w-100"  maxlength="30" value="` +
         initial +
         `">
                     </div>
