@@ -152,7 +152,7 @@ class ServiceController extends Controller
         // dd($result);
         return view('user-page.'.$filename, [
             'script' => $filename_script,
-            'title' => 'Daftar Custom Permintaan ',
+            'title' => 'Riwayat Pesanan Layanan ',
             'my_orders' => $result,
             'status' => $status,
             'delivery' => $delivery

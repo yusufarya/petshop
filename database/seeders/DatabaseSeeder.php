@@ -109,6 +109,7 @@ class DatabaseSeeder extends Seeder
         Vendor::create([
             'code' => '1',
             'name' => 'Vendor A',
+            'phone' => '08986564321',
             'address' => 'Tangerang',
         ]);
 
