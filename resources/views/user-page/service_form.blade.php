@@ -8,7 +8,7 @@
         <h3 style="font-size: 26px; font-weight: 600"> {{ $title . ' Pet-Shop' }} </h3>
         </div>
     </div>
-    <a href="/my-req-orders" class="ms-3 text-danger">Lithat Pesanan Saya</a> 
+    <a href="/my-req-orders" class="ms-3 text-danger text-decoration-none">Riwayan layanan saya</a> 
     <div class="pt-2 ms-3"> <p>Note : Jasa pengiriman luar Tangerang akan di alihkan ke jasa expedisi</p> </div>
     @if (session()->has('message'))
         <div class="alert alert-danger py-1 mx-2 text-center">

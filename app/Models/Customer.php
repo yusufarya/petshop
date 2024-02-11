@@ -77,15 +77,6 @@ class Customer extends Authenticatable
         if($delivery) {
             $where_['delivery'] = $delivery;
         }
-
-        // dd($where_);
-        // return DB::table('sales_orders')
-        //         ->select('sales_orders.*')
-        //         ->leftJoin('customers', 'customers.code', '=', 'sales_orders.customer_code')
-        //         ->leftJoin('sales_order_details', 'sales_order_details.sales_order_id', '=', 'sales_orders.id') 
-        //         // ->leftJoin('categories', 'categories.id', '=', 'trainings.category_id')
-        //         ->where(['customer_code' => Auth::guard('customer')->user()->code])->get();
-
         $data = SalesOrder::with('customers', 'salesOrderDetails.products.categories', 'salesOrderDetails.products.brands', 'salesOrderDetails.products.sizes')
                             ->where($where_)->orderBy('code', 'DESC')->get();
         return $data;
